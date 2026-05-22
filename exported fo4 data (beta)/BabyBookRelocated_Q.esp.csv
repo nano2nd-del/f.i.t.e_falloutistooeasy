@@ -1,0 +1,5 @@
+source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
+BabyBookRelocated_Q.esp,001A62D5,001A62D4,PlayerHouse_Ruin_BabyBook01,MISC,-80886.039062,91115.203125,7854.551758,1.7111
+BabyBookRelocated_Q.esp,FE024802,001A62D4,PlayerHouse_Ruin_BabyBook01,MISC,1215.720459,-1916.137695,-1022.505432,45.1668
+BabyBookRelocated_Q.esp,FE024801,001A62D4,PlayerHouse_Ruin_BabyBook01,MISC,2239.830811,-186.473389,568.027283,118.6479
+BabyBookRelocated_Q.esp,FE024800,001A62D4,PlayerHouse_Ruin_BabyBook01,MISC,1228.355347,128.035309,289.576019,270.0000

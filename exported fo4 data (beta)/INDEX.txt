@@ -1,0 +1,135 @@
+plugin,ref_count
+AVSOTW.esp,1
+AmericaRising2.esm,113007
+AmericaRising2LVPatch.esp,5
+AnimalRescue.esp,31
+Annie.esp,2
+AntiPowerArmor.esp,1
+BabyBookRelocated_Q.esp,4
+Backpacks of the Commonwealth.esp,2853
+Berserker.esp,2
+Boat To Spectacle Island - AR2 Patch.esp,14
+Boat To Spectacle Island.esp,924
+CW10mmSMG.esp,1642
+CW127MMSMG.esp,1
+CW45MP.esp,1
+CWM82.esp,2
+CWOutfitPackPart2.esl,24
+CWPlasmaDefender.esp,786
+CWSkorp.esp,345
+CWThrowables.esp,58
+CWWratchet.esp,267
+CambridgeNuke.esp,2
+CavesOfTheCommonwealth.esp,51920
+ChinaCommando.esp,4
+ChineseRemnants.esp,4429
+ClassicBOSOutcast.esp,3
+ClassicSkillBooks.esl,32
+ConsumablesOfTheCommonwealth.esp,31
+CutContentNPCsAiO.esp,22
+Darlene.esm,1897
+DesBladesOfTheWastes.esp,4
+DocsoftheCW.esl,18
+DrugEffects.esp,3
+DrunkMod_SpecialBased.esp,139
+EightCompanions.esp,8
+EightCompanionsAdjusted.esp,1
+EnclaveInfantry.esp,1
+EnclaveRemnants.esp,11
+FITE_NoraSpouseRelocated.esp,15
+FITE_vault111craftingtoolspatch.esp,2
+FaceMaxson.esp,874
+FatherCompanion.esp,29
+Firelance2.5.esp,62510
+FortStrongRedux.esp,5132
+GenericComp2.esp,17
+GenericCompanionsAddOn.esp,24
+HomeUnimprovement.esp,1
+Improved - Animated Accessible Backpack.esp,2
+InstituteReformation.esp,93
+IntWayneGorski.esp,27
+IntegratedAddons.esp,381
+JunkernaughtRaiders.esl,68
+LessLoot - AmericaRising2.esp,956
+LootableACUnit_Q.esp,1291
+LootableCrates MergedDLCs.esp,5133
+LootableCrates.esp,10226
+LootableVertibirds.esp,12
+LootableWorld_Q.esp,26701
+LootedWorldX_ACTI.esp,1101
+LootedWorldX_CONT_NoMedKitExt.esp,5202
+LootedWorldX_FURN_Workbench.esp,990
+MFC2025_EndAlz_Conspiracy.esm,3837
+MagToBookReplacer_Q.esp,101
+MineSwapper.esp,1
+Minuteman Watchtowers - Survey Addon.esm,40
+MiscOutfitPackv2.esp,1
+MoBSS More Beds to Save in Survival.esp,14
+MoleRatReplacer_Q.esp,221
+More_Water_Mist.esp,3151
+MuckPoolHarvest_Q.esp,84
+Natural Occupation.esm,2106
+Nomads.esp,388
+NoraSpouse.esm,1
+PCB - Companions.esp,40
+Populated Interiors.esp,290
+PostmortemMerchandise.esl,1
+PowerHelmets.esp,17
+QwibLucyBag.esp,1
+RAIN_Vault_111.esp,378
+RA_Gunners.esp,89
+RadiantCaravans_Q.esp,26
+RadiantFortHagen_Q.esp,9
+RandomCity.esl,412
+RarePowerArmour_Locations.esp,22
+RecruitDeadMinuteWomanConcord.esp,1
+RecruitableScavengers.esp,21
+RecruitableWastelanders.esp,30
+RedShiftPowerArmor.esp,2
+Remove-Fusion-Cores.esp,33
+SKKDocDrumlin_esl.esp,1
+SKKWorkshopsStartHostile.esp,13
+SSTMinutemanWatchtowers.esl,350
+SSTMinutemanWatchtowers_Patch.esp,127
+SecureHomeNAV.esp,772
+SkillBooks.esl,24
+Skip_Q.esp,3
+SkyCamps-Southern Outposts.esp,332
+SkyCamps.esp,501
+StartsDeadAlive_Q.esp,1229
+StripSkeletonsAndMannequins.esp,7
+SubwayRunnerBetterNav.esp,41
+SubwayRunnnerDynamicLighting.esp,94616
+SwitchBoard_Reborn.esp,1216
+ToasterGag.esp,2
+Tumba_Gunner_Collection.esp,2
+Tumba_Gunner_Collection_Camp.esp,253
+Tumba_Gunner_Collection_Smuggler.esp,100
+Tumba_LeatherArmor.esp,8
+Tumba_MM_Armor_Collection.esp,13
+Tumba_RobCoArmor.esp,9
+Tumba_SteelPlateArmor.esp,9
+Tumba_SynthArmorCollection.esp,10
+VDSGMagazine.esl,8
+Vault 111 - After the Fallout REDUX.esp,121
+VerticalSpawns light Version.esp,1653
+W.A.T.Minutemen.esp,36
+WANYA_LootableTerminals.esl,902
+WM Chinese Assault Rifle - Standalone.esp,6
+WTPAM.esl,5
+WorkshopFramework.esm,43
+ccBGSFO4044-HellfirePowerArmor.esl,19
+ccBGSFO4046-TesCan.esl,15
+ccBGSFO4115-X02.esl,231
+ccBGSFO4116-HeavyFlamer.esl,90
+ccFSVFO4007-Halloween.esl,1660
+ccOTMFO4001-Remnants.esl,972
+ccSBJFO4003-Grenade.esl,64
+community fixes merged.esp,27
+ellen.esp,10
+essen_protovta.esp,10
+i73fi-scavengers.esp,756
+llamaCompanionHeatherv2.esp,1155
+more_bloodbugs.esp,124
+tumba_Minutemen-eXospanded.esp,7
+unofficial fallout 4 patch.esp,15632

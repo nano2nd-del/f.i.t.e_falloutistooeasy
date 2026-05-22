@@ -1,0 +1,5 @@
+source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
+DesBladesOfTheWastes.esp,FE08AF9A,FE08AF99,BOTWDesNutsKnife,WEAP,-1754.600708,-1342.339966,8.796936,0.0000
+DesBladesOfTheWastes.esp,FE08A006,FE08A005,BOTWDesSavageScrapKnife,WEAP,-1724.425781,-1343.870117,0.000000,0.0000
+DesBladesOfTheWastes.esp,FE08A004,FE08A003,BOTWDesWrenchKnife,WEAP,-1735.729858,-1342.166870,0.000015,0.0000
+DesBladesOfTheWastes.esp,FE08A002,FE08A001,BOTWDesShiv,WEAP,-1745.552490,-1340.997192,7.315148,0.0000
