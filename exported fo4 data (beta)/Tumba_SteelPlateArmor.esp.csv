@@ -1,0 +1,10 @@
+source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
+Tumba_SteelPlateArmor.esp,FE09B09A,0000003B,XMarker,STAT,9584.756836,11540.538086,2757.743652,346.1446
+Tumba_SteelPlateArmor.esp,FE09B08C,FE09B00E,Armor_SteelPlateArmor_Tumba,ARMO,53250.437500,58893.707031,2153.325195,61.0204
+Tumba_SteelPlateArmor.esp,FE09B08B,FE09B00D,SteelPlateArmor_Helmet_Tumba,ARMO,53252.617187,58925.421875,2159.983154,81.3402
+Tumba_SteelPlateArmor.esp,FE09B08A,FE09B015,Sledgehammer_SteelPlate_Tumba,WEAP,53255.417969,58870.992187,2186.119385,0.0017
+Tumba_SteelPlateArmor.esp,FE09BF9D,00000032,COCMarkerHeading,STAT,34.041122,22.422247,6.111266,0.0000
+Tumba_SteelPlateArmor.esp,FE09BF9C,FE09B00C,SteelPlateArmor_Locker_01_Tumba,CONT,94.309555,181.240479,0.000061,44.1751
+Tumba_SteelPlateArmor.esp,FE09BF9B,0012EA9B,WorkbenchArmorA,FURN,-112.636574,127.415565,0.000000,0.0000
+Tumba_SteelPlateArmor.esp,FE09BF9A,0012DC30,AirportFloor01,STAT,0.000000,0.000000,0.000000,0.0000
+Tumba_SteelPlateArmor.esp,FE09B016,0017B3A4,workbenchWeaponsA,FURN,158.661224,90.213211,0.357492,85.9437

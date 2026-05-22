@@ -1,0 +1,4 @@
+source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
+Skip_Q.esp,001EB9A9,0003EC20,XXXCompoundTestCOMPOUNDmarker,SOUN,-80229.117188,90766.046875,7915.730957,0.0000
+Skip_Q.esp,001EB9A8,0003EC20,XXXCompoundTestCOMPOUNDmarker,SOUN,-80363.367188,90868.078125,7885.894531,0.0000
+Skip_Q.esp,000AA765,0003251C,DefaultSetStageTrigger,ACTI,-80332.148438,90851.812500,8012.749023,51.5662

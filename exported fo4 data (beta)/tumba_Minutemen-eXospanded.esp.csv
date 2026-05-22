@@ -1,0 +1,8 @@
+source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
+tumba_Minutemen-eXospanded.esp,FE04FA65,00024572,NPCInvWallLean01,FURN,93628.960938,75705.093750,808.028137,156.9905
+tumba_Minutemen-eXospanded.esp,FE04FA67,FE04E08A,Tumba_EncMolerat04,NPC_,94413.429688,75947.882812,696.031982,0.0000
+tumba_Minutemen-eXospanded.esp,FE04FA66,000E210E,NPCSmokeIdleMarker,IDLM,94526.125000,75966.789062,664.357849,103.1324
+tumba_Minutemen-eXospanded.esp,FE04FA68,FE04EF9B,Tumba_MinutemenFaceM01,NPC_,94572.750000,75974.242188,672.397217,0.0000
+tumba_Minutemen-eXospanded.esp,FE04F01D,000E4610,EnableMarker,STAT,94068.781250,75701.726562,800.850464,0.0000
+tumba_Minutemen-eXospanded.esp,FE04E0A3,FE04E0A2,Tumba_MM_EncRaider06,NPC_,-32190.005859,-85639.515625,2112.594971,0.0000
+tumba_Minutemen-eXospanded.esp,FE04E090,FE04E061,Tumba_MM_PowerArmorFurnitureNoCore,FURN,45244.593750,-45887.484375,800.000244,47.0685

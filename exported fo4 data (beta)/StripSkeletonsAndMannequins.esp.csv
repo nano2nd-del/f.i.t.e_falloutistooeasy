@@ -1,0 +1,8 @@
+source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
+StripSkeletonsAndMannequins.esp,00249066,0014F698,MannequinFemaleBurnt01,MSTT,21807.941406,-12716.288086,875.534119,304.4579
+StripSkeletonsAndMannequins.esp,000828B0,0014F697,MannequinMaleBurnt01,MSTT,-1458.860962,-2704.436768,331.267365,43.5447
+StripSkeletonsAndMannequins.esp,002480B4,0014F698,MannequinFemaleBurnt01,MSTT,1566.869507,1663.002319,-1536.514771,101.9865
+StripSkeletonsAndMannequins.esp,002480B5,0014F697,MannequinMaleBurnt01,MSTT,1554.935303,1619.204956,-1535.010254,119.7482
+StripSkeletonsAndMannequins.esp,0019943B,0014F698,MannequinFemaleBurnt01,MSTT,-1021.632080,-4798.957031,-527.684143,347.5672
+StripSkeletonsAndMannequins.esp,0019943C,0014F697,MannequinMaleBurnt01,MSTT,-1348.859375,-4804.165039,-526.737122,45.8367
+StripSkeletonsAndMannequins.esp,03043A3D,03043A3C,SkeletonClothedVaultsuit118,MSTT,56.088028,4758.756836,609.692322,134.2294

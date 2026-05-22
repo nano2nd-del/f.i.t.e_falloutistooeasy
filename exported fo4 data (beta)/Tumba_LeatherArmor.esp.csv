@@ -1,0 +1,9 @@
+source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
+Tumba_LeatherArmor.esp,FE09A09E,FE09A09C,Armor_Gasmask_Tumba,ARMO,-23552.460938,19122.423828,2098.861084,291.0256
+Tumba_LeatherArmor.esp,FE09A09A,FE09A084,Armor_Leather_Backpack_Tumba,ARMO,-23702.232422,19200.732422,2164.168945,180.0294
+Tumba_LeatherArmor.esp,FE09A03A,FE09AF9A,Armor_Leather_Helmet_Tumba,ARMO,-23888.541016,18995.212891,2097.731934,16.0945
+Tumba_LeatherArmor.esp,FE09A039,FE09AF99,Armor_Leather_Armor_Tumba,ARMO,-23862.863281,18969.216797,2098.243896,316.0774
+Tumba_LeatherArmor.esp,FE09A00E,00000032,COCMarkerHeading,STAT,7.555508,-154.373703,5.694537,0.0000
+Tumba_LeatherArmor.esp,FE09A00D,FE09A009,Prewar_Locker_01_Tumba,CONT,122.396019,205.522690,0.000000,28.6479
+Tumba_LeatherArmor.esp,FE09A00C,0012EA9B,WorkbenchArmorA,FURN,-159.448593,186.458954,-0.000031,0.0000
+Tumba_LeatherArmor.esp,FE09A00B,0012DC30,AirportFloor01,STAT,0.000000,0.000000,0.000000,0.0000
