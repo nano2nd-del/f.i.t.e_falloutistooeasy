@@ -1,0 +1,58 @@
+[
+  {
+    "name": "AMMO",
+    "original_size": 14505,
+    "compressed_size": 3471,
+    "compression_ratio": 76.07,
+    "timestamp": "2026-05-22T23:48:14.359996",
+    "file": "AMMO.db.gz"
+  },
+  {
+    "name": "ARMO",
+    "original_size": 202955,
+    "compressed_size": 35484,
+    "compression_ratio": 82.52,
+    "timestamp": "2026-05-22T23:48:14.433123",
+    "file": "ARMO.db.gz"
+  },
+  {
+    "name": "FACT",
+    "original_size": 73548,
+    "compressed_size": 13328,
+    "compression_ratio": 81.88,
+    "timestamp": "2026-05-22T23:48:14.466074",
+    "file": "FACT.db.gz"
+  },
+  {
+    "name": "KYWD",
+    "original_size": 345790,
+    "compressed_size": 48098,
+    "compression_ratio": 86.09,
+    "timestamp": "2026-05-22T23:48:14.563304",
+    "file": "KYWD.db.gz"
+  },
+  {
+    "name": "NPC_",
+    "original_size": 1966176,
+    "compressed_size": 162876,
+    "compression_ratio": 91.72,
+    "timestamp": "2026-05-22T23:48:14.704392",
+    "file": "NPC_.db.gz"
+  },
+  {
+    "name": "OTFT",
+    "original_size": 62303,
+    "compressed_size": 13904,
+    "compression_ratio": 77.68,
+    "timestamp": "2026-05-22T23:48:14.752956",
+    "file": "OTFT.db.gz"
+  },
+  {
+    "name": "WEAP",
+    "original_size": 75080,
+    "compressed_size": 16455,
+    "compression_ratio": 78.08,
+    "timestamp": "2026-05-22T23:48:14.801446",
+    "file": "WEAP.db.gz"
+  }
+]
