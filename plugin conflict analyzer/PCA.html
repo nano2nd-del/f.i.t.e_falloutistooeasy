@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plugin Conflict Analyzer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111418;
+    --bg3: #181c22;
+    --border: #2a2f3a;
+    --border2: #3a4050;
+    --accent: #00e5a0;
+    --accent2: #00b87a;
+    --danger: #ff4d6d;
+    --warn: #ffb347;
+    --info: #4db8ff;
+    --text: #c8d0dc;
+    --text2: #7a8494;
+    --text3: #4a5060;
+    --mono: 'Share Tech Mono', monospace;
+    --head: 'Rajdhani', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--head);
+    font-size: 15px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* scanline overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.07) 2px, rgba(0,0,0,.07) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg2);
+  }
+
+  .logo-mark {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--accent);
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+  .logo-mark::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid var(--accent2);
+    opacity: .5;
+  }
+  .logo-mark span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: -.5px;
+  }
+
+  .header-title { font-size: 20px; font-weight: 700; letter-spacing: .08em; color: #fff; }
+  .header-sub { font-size: 12px; color: var(--text2); letter-spacing: .1em; font-family: var(--mono); margin-top: 1px; }
+
+  .header-status {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    text-align: right;
+  }
+  .header-status .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text3);
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .header-status .dot.live { background: var(--accent); box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* drop zone */
+  #drop-zone {
+    margin: 60px auto;
+    max-width: 560px;
+    border: 1.5px dashed var(--border2);
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  #drop-zone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,229,160,.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  #drop-zone:hover, #drop-zone.drag-over {
+    border-color: var(--accent);
+    background: rgba(0,229,160,.04);
+  }
+  .drop-icon {
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 20px;
+    opacity: .6;
+  }
+  .drop-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: .05em;
+    margin-bottom: 8px;
+  }
+  .drop-sub {
+    font-size: 13px;
+    color: var(--text2);
+    font-family: var(--mono);
+    margin-bottom: 24px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 24px;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--head);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    cursor: pointer;
+    background: transparent;
+    transition: background .15s, color .15s;
+  }
+  .btn:hover { background: var(--accent); color: #000; }
+  #file-input { display: none; }
+
+  /* dashboard */
+  #dashboard { display: none; padding: 0 32px 48px; }
+
+  .file-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .file-info strong { color: var(--accent); }
+  .file-info .reset-btn {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--text3);
+    font-size: 11px;
+    letter-spacing: .08em;
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    padding: 4px 8px;
+  }
+  .file-info .reset-btn:hover { color: var(--danger); }
+
+  /* metrics row */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .metric {
+    background: var(--bg2);
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .metric-val {
+    font-family: var(--mono);
+    font-size: 26px;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .metric-val.green { color: var(--accent); }
+  .metric-val.red   { color: var(--danger); }
+  .metric-val.warn  { color: var(--warn); }
+  .metric-lbl { font-size: 11px; color: var(--text2); letter-spacing: .1em; text-transform: uppercase; }
+
+  /* tab bar */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .tab {
+    padding: 10px 22px;
+    font-family: var(--head);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--text2);
+    border-bottom: 2px solid transparent;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition: color .15s;
+    margin-bottom: -1px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .pane { display: none; }
+  .pane.active { display: block; }
+
+  /* section */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* bar rows */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+  .bar-label {
+    width: 260px;
+    flex-shrink: 0;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .bar-label:hover { color: var(--accent); }
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--bg3);
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill { height: 100%; transition: width .4s ease; }
+  .bar-fill.loss  { background: var(--danger); }
+  .bar-fill.win   { background: var(--accent); }
+  .bar-fill.net   { background: linear-gradient(90deg, var(--danger), #ff8560); }
+  .bar-fill.blue  { background: var(--info); }
+  .bar-fill.warn  { background: var(--warn); }
+  .bar-val {
+    width: 52px;
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+    flex-shrink: 0;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 1px 6px;
+    border: 1px solid;
+    letter-spacing: .05em;
+  }
+  .badge-r { color: var(--danger); border-color: rgba(255,77,109,.3); background: rgba(255,77,109,.07); }
+  .badge-g { color: var(--accent); border-color: rgba(0,229,160,.3); background: rgba(0,229,160,.07); }
+  .badge-w { color: var(--warn);   border-color: rgba(255,179,71,.3);  background: rgba(255,179,71,.07); }
+  .badge-i { color: var(--info);   border-color: rgba(77,184,255,.3);  background: rgba(77,184,255,.07); }
+
+  /* alert cards */
+  .alert {
+    border-left: 3px solid;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    background: var(--bg2);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .alert strong { font-weight: 700; display: block; margin-bottom: 4px; font-size: 14px; }
+  .alert.a-r { border-color: var(--danger); }
+  .alert.a-r strong { color: var(--danger); }
+  .alert.a-w { border-color: var(--warn); }
+  .alert.a-w strong { color: var(--warn); }
+  .alert.a-i { border-color: var(--info); }
+  .alert.a-i strong { color: var(--info); }
+  .alert.a-g { border-color: var(--accent); }
+  .alert.a-g strong { color: var(--accent); }
+
+  /* grid */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* pair table */
+  .pair-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .pair-row:last-child { border: none; }
+  .pair-mods { font-family: var(--mono); color: var(--text2); }
+  .pair-mods em { color: var(--text); font-style: normal; }
+  .pair-count { font-family: var(--mono); color: var(--text2); flex-shrink: 0; margin-left: 12px; }
+
+  /* search */
+  .search-wrap { position: relative; margin-bottom: 16px; }
+  .search-wrap input {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 9px 14px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--text3); }
+
+  /* mod detail panel */
+  #mod-detail {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 420px;
+    background: var(--bg2);
+    border-left: 1px solid var(--border2);
+    padding: 24px;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform .25s ease;
+    z-index: 100;
+  }
+  #mod-detail.open { transform: none; }
+  .detail-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .detail-close:hover { border-color: var(--danger); color: var(--danger); }
+  .detail-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; word-break: break-all; }
+  .detail-sub { font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 20px; }
+  .stat-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; font-family: var(--mono); }
+  .stat-row:last-child { border: none; }
+
+  /* spinner */
+  #loading { display: none; text-align: center; padding: 80px 20px; font-family: var(--mono); color: var(--text2); font-size: 13px; }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .metrics { grid-template-columns: repeat(3, 1fr); }
+    .grid2 { grid-template-columns: 1fr; }
+    #mod-detail { width: 100%; }
+    header { padding: 14px 16px; }
+    #dashboard { padding: 0 16px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark"><span>PCA</span></div>
+  <div>
+    <div class="header-title">PLUGIN CONFLICT ANALYZER</div>
+    <div class="header-sub">// xEdit conflict report viewer</div>
+  </div>
+  <div class="header-status" id="header-status">
+    <span class="dot" id="status-dot"></span>
+    <span id="status-text">NO FILE LOADED</span>
+  </div>
+</header>
+
+<div id="drop-zone">
+  <div class="drop-icon">⬡</div>
+  <div class="drop-title">DROP YOUR CONFLICT REPORT</div>
+  <div class="drop-sub">// CSV exported from xEdit / FO4Edit</div>
+  <button class="btn" onclick="document.getElementById('file-input').click()">SELECT FILE</button>
+  <input type="file" id="file-input" accept=".csv">
+</div>
+
+<div id="loading">
+  <div class="spinner"></div>
+  PARSING CONFLICT DATA...
+</div>
+
+<div id="dashboard">
+  <div class="file-info">
+    <span>FILE:</span>
+    <strong id="fname">—</strong>
+    <span id="frows">—</span>
+    <button class="reset-btn" onclick="reset()">[ LOAD NEW FILE ]</button>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-val" id="m-total">—</div><div class="metric-lbl">Total records</div></div>
+    <div class="metric"><div class="metric-val green" id="m-wins">—</div><div class="metric-lbl">Wins</div></div>
+    <div class="metric"><div class="metric-val red" id="m-losses">—</div><div class="metric-lbl">Losses</div></div>
+    <div class="metric"><div class="metric-val" id="m-mods">—</div><div class="metric-lbl">Unique mods</div></div>
+    <div class="metric"><div class="metric-val warn" id="m-forms">—</div><div class="metric-lbl">FormIDs</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showPane('net')">NET LOSSES</button>
+    <button class="tab" onclick="showPane('pairs')">CONFLICT PAIRS</button>
+    <button class="tab" onclick="showPane('types')">RECORD TYPES</button>
+    <button class="tab" onclick="showPane('always')">NEVER WINS</button>
+    <button class="tab" onclick="showPane('alerts')">ACTION PLAN</button>
+  </div>
+
+  <div id="pane-net" class="pane active">
+    <div class="section-label">Mods by net losses — click any row for detail</div>
+    <div id="net-bars"></div>
+  </div>
+
+  <div id="pane-pairs" class="pane">
+    <div class="section-label">Top conflicting mod pairs</div>
+    <div class="search-wrap">
+      <input id="pair-search" placeholder="// filter by mod name..." oninput="filterPairs(this.value)">
+    </div>
+    <div id="pair-list"></div>
+  </div>
+
+  <div id="pane-types" class="pane">
+    <div class="grid2">
+      <div>
+        <div class="section-label">Record types by volume</div>
+        <div id="type-bars"></div>
+      </div>
+      <div>
+        <div class="section-label">Type reference</div>
+        <div style="font-size:12px;font-family:var(--mono);color:var(--text2);line-height:1.9">
+          <div><span style="color:var(--accent)">WRLD / CELL</span> — worldspace &amp; cell data. Very common; best resolved with a merged patch.</div>
+          <div><span style="color:var(--warn)">COBJ</span> — crafting recipes. Losses can break workshop menu entries.</div>
+          <div><span style="color:var(--danger)">LVLI</span> — leveled lists. High gameplay impact — affects loot spawns.</div>
+          <div><span style="color:var(--info)">ALCH</span> — consumables/chems. Losses can change chem effects or food stats.</div>
+          <div><span style="color:var(--text)">QUST</span> — quest records. Can affect dialogue, objectives, flags.</div>
+          <div><span style="color:var(--text)">PERK</span> — perks. Low volume but high impact if lost.</div>
+          <div><span style="color:var(--text)">OMOD</span> — weapon mods (misc mods). Losing these breaks mod crafting/attach.</div>
+          <div><span style="color:var(--text)">NAVM</span> — navmesh. Losing these can break NPC pathing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pane-always" class="pane">
+    <div class="grid2">
+      <div>
+        <div class="section-label">Never wins — always overridden</div>
+        <div id="never-list"></div>
+      </div>
+      <div>
+        <div class="section-label">Never loses — always overrides</div>
+        <div id="always-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pane-alerts" class="pane">
+    <div class="section-label">Auto-generated action plan</div>
+    <div id="alert-list"></div>
+  </div>
+</div>
+
+<div id="mod-detail">
+  <button class="detail-close" onclick="closeDetail()">[ CLOSE ]</button>
+  <div class="detail-title" id="d-name">—</div>
+  <div class="detail-sub" id="d-sub">—</div>
+  <div id="d-stats"></div>
+  <div style="margin-top:20px" class="section-label">Top conflicts</div>
+  <div id="d-conflicts"></div>
+</div>
+
+<script>
+let allData = [], pairData = [], modStats = {}, typeStats = {}, allPairs = [];
+
+const drop = document.getElementById('drop-zone');
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag-over'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('drag-over'));
+drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('drag-over'); handleFile(e.dataTransfer.files[0]); });
+document.getElementById('file-input').addEventListener('change', e => handleFile(e.target.files[0]));
+
+function handleFile(file) {
+  if (!file) return;
+  drop.style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+  const reader = new FileReader();
+  reader.onload = e => { setTimeout(() => parseCSV(e.target.result, file.name), 50); };
+  reader.readAsText(file);
+}
+
+function parseCSV(text, fname) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const parts = smartSplit(lines[i]);
+    if (parts.length < 5) continue;
+    rows.push({
+      type: parts[0].trim().replace(/^"|"$/g, ''),
+      currentMod: parts[1].trim().replace(/^"|"$/g, ''),
+      recordName: parts[2].trim().replace(/^"|"$/g, ''),
+      formID: parts[3].trim().replace(/^"|"$/g, ''),
+      conflictingMod: parts[4].trim().replace(/^"|"$/g, '')
+    });
+  }
+  allData = rows;
+  analyze(fname);
+}
+
+function smartSplit(line) {
+  const res = []; let cur = ''; let inQ = false;
+  for (let c of line) {
+    if (c === '"') { inQ = !inQ; continue; }
+    if (c === ',' && !inQ) { res.push(cur); cur = ''; continue; }
+    cur += c;
+  }
+  res.push(cur);
+  return res;
+}
+
+function analyze(fname) {
+  const mods = {};
+  const pairs = {};
+  const types = {};
+  const formContest = {};
+
+  allData.forEach(r => {
+    // mod stats
+    if (!mods[r.currentMod]) mods[r.currentMod] = { wins: 0, losses: 0, beatenBy: {}, beats: {} };
+    if (r.type === 'Win') {
+      mods[r.currentMod].wins++;
+      if (!mods[r.currentMod].beats[r.conflictingMod]) mods[r.currentMod].beats[r.conflictingMod] = 0;
+      mods[r.currentMod].beats[r.conflictingMod]++;
+    } else {
+      mods[r.currentMod].losses++;
+      if (!mods[r.currentMod].beatenBy[r.conflictingMod]) mods[r.currentMod].beatenBy[r.conflictingMod] = 0;
+      mods[r.currentMod].beatenBy[r.conflictingMod]++;
+    }
+
+    // pairs
+    const key = [r.currentMod, r.conflictingMod].sort().join('|||');
+    if (!pairs[key]) pairs[key] = 0;
+    pairs[key]++;
+
+    // types
+    const m = r.recordName.match(/\[([A-Z]{2,6}):/);
+    if (m) { types[m[1]] = (types[m[1]] || 0) + 1; }
+
+    // form contest
+    if (!formContest[r.formID]) formContest[r.formID] = { mods: new Set(), name: r.recordName };
+    formContest[r.formID].mods.add(r.conflictingMod);
+  });
+
+  modStats = mods;
+  typeStats = types;
+
+  // build pairs list
+  allPairs = Object.entries(pairs)
+    .map(([k, v]) => { const [a, b] = k.split('|||'); return { a, b, count: v }; })
+    .sort((a, b) => b.count - a.count);
+
+  const wins = allData.filter(r => r.type === 'Win').length;
+  const losses = allData.filter(r => r.type === 'Loss').length;
+  const allModNames = new Set([...allData.map(r => r.currentMod), ...allData.map(r => r.conflictingMod)]);
+  const allForms = new Set(allData.map(r => r.formID));
+
+  document.getElementById('fname').textContent = fname;
+  document.getElementById('frows').textContent = `// ${allData.length.toLocaleString()} records`;
+  document.getElementById('m-total').textContent = allData.length.toLocaleString();
+  document.getElementById('m-wins').textContent = wins.toLocaleString();
+  document.getElementById('m-losses').textContent = losses.toLocaleString();
+  document.getElementById('m-mods').textContent = allModNames.size.toLocaleString();
+  document.getElementById('m-forms').textContent = allForms.size.toLocaleString();
+
+  document.getElementById('status-dot').className = 'dot live';
+  document.getElementById('status-text').textContent = fname.toUpperCase();
+
+  renderNetBars();
+  renderPairs();
+  renderTypes();
+  renderAlwaysNever();
+  renderAlerts();
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+}
+
+function renderNetBars() {
+  const sorted = Object.entries(modStats)
+    .map(([m, s]) => ({ mod: m, net: s.losses - s.wins, losses: s.losses, wins: s.wins }))
+    .filter(d => d.net > 0)
+    .sort((a, b) => b.net - a.net)
+    .slice(0, 30);
+
+  const max = sorted[0]?.net || 1;
+  document.getElementById('net-bars').innerHTML = sorted.map(d => `
+    <div class="bar-row">
+      <div class="bar-label" onclick="openDetail('${esc(d.mod)}')" title="${esc(d.mod)}">${d.mod}</div>
+      <div class="bar-track"><div class="bar-fill net" style="width:${Math.round(d.net/max*100)}%"></div></div>
+      <div class="bar-val">${d.net.toLocaleString()}</div>
+      <span class="badge badge-r">${d.losses}L / ${d.wins}W</span>
+    </div>`).join('');
+}
+
+function renderPairs() {
+  renderPairList(allPairs.slice(0, 50));
+}
+
+function renderPairList(data) {
+  document.getElementById('pair-list').innerHTML = data.slice(0, 60).map((d, i) => `
+    <div class="pair-row">
+      <div class="pair-mods">
+        <em>${d.a}</em>
+        <span style="color:var(--text3);margin:0 6px">↔</span>
+        <em>${d.b}</em>
+      </div>
+      <div class="pair-count">${d.count.toLocaleString()} records</div>
+    </div>`).join('');
+}
+
+function filterPairs(q) {
+  const f = q.toLowerCase();
+  const filtered = allPairs.filter(d => d.a.toLowerCase().includes(f) || d.b.toLowerCase().includes(f));
+  renderPairList(filtered.slice(0, 60));
+}
+
+function renderTypes() {
+  const sorted = Object.entries(typeStats).sort((a, b) => b[1] - a[1]);
+  const max = sorted[0]?.[1] || 1;
+  const colors = { WRLD:'win', CELL:'win', COBJ:'warn', LVLI:'loss', ALCH:'blue', QUST:'blue', PERK:'loss', OMOD:'warn' };
+  document.getElementById('type-bars').innerHTML = sorted.map(([t, c]) => `
+    <div class="bar-row">
+      <div class="bar-label">${t}</div>
+      <div class="bar-track"><div class="bar-fill ${colors[t]||'blue'}" style="width:${Math.round(c/max*100)}%"></div></div>
+      <div class="bar-val">${c.toLocaleString()}</div>
+    </div>`).join('');
+}
+
+function renderAlwaysNever() {
+  const lossSet = new Set(allData.filter(r=>r.type==='Loss').map(r=>r.currentMod));
+  const winSet  = new Set(allData.filter(r=>r.type==='Win').map(r=>r.currentMod));
+  const neverWins = [...lossSet].filter(m => !winSet.has(m));
+  const neverLoses = [...winSet].filter(m => !lossSet.has(m));
+
+  const lossCount = m => modStats[m]?.losses || 0;
+  const winCount  = m => modStats[m]?.wins || 0;
+
+  document.getElementById('never-list').innerHTML = neverWins
+    .sort((a,b) => lossCount(b)-lossCount(a))
+    .map(m => `<div class="bar-row">
+      <div class="bar-label" onclick="openDetail('${esc(m)}')" title="${m}">${m}</div>
+      <span class="badge badge-r">${lossCount(m)} losses</span>
+    </div>`).join('') || '<div style="color:var(--text3);font-family:var(--mono);font-size:12px">None found.</div>';
+
+  document.getElementById('always-list').innerHTML = neverLoses
+    .sort((a,b) => winCount(b)-winCount(a))
+    .map(m => `<div class="bar-row">
+      <div class="bar-label" onclick="openDetail('${esc(m)}')" title="${m}">${m}</div>
+      <span class="badge badge-g">${winCount(m)} wins</span>
+    </div>`).join('') || '<div style="color:var(--text3);font-family:var(--mono);font-size:12px">None found.</div>';
+}
+
+function renderAlerts() {
+  const alerts = [];
+
+  // UFO4P
+  const ufo = modStats['unofficial fallout 4 patch.esp'];
+  if (ufo && ufo.losses > 500) {
+    const top = Object.entries(ufo.beatenBy).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([m])=>m).join(', ');
+    alerts.push({ cls:'a-r', head:`UFO4P losing ${ufo.losses.toLocaleString()} records`, body:`Unofficial Fallout 4 Patch is being overridden by: ${top}, and others. It should load immediately after DLCs — verify nothing except DLC ESMs precedes it.` });
+  }
+
+  // any mod with high net losses
+  const netSorted = Object.entries(modStats)
+    .map(([m,s]) => ({ mod:m, net:s.losses-s.wins, losses:s.losses, wins:s.wins }))
+    .filter(d => d.net > 200 && !d.mod.includes('.esm') && !d.mod.includes('.esl'))
+    .sort((a,b) => b.net-a.net)
+    .slice(0,5);
+
+  netSorted.forEach(d => {
+    const top = Object.entries(modStats[d.mod].beatenBy).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([m])=>m).join(', ');
+    alerts.push({ cls:'a-w', head:`${d.mod} — ${d.net.toLocaleString()} net losses`, body:`This mod is being overridden far more than it overrides others. Top offenders: ${top}. Consider moving it later in load order or finding a compatibility patch.` });
+  });
+
+  // leveled list conflicts
+  const lvliLosers = Object.entries(modStats)
+    .filter(([m,s]) => {
+      const lv = allData.filter(r => r.currentMod===m && r.type==='Loss' && r.recordName.includes('[LVLI:')).length;
+      return lv > 10;
+    })
+    .map(([m]) => m);
+  if (lvliLosers.length) {
+    alerts.push({ cls:'a-w', head:`Leveled list conflicts detected`, body:`${lvliLosers.join(', ')} are losing LVLI records. Leveled list losses affect loot and spawn tables — these are high-impact conflicts. Consider an xEdit merged patch or LeveledListMerger.` });
+  }
+
+  // mods that only lose
+  const lossSet = new Set(allData.filter(r=>r.type==='Loss').map(r=>r.currentMod));
+  const winSet  = new Set(allData.filter(r=>r.type==='Win').map(r=>r.currentMod));
+  const neverWinsEsps = [...lossSet].filter(m => !winSet.has(m) && !m.includes('.esm') && !m.includes('.esl'));
+  if (neverWinsEsps.length) {
+    alerts.push({ cls:'a-i', head:`${neverWinsEsps.length} ESP(s) never win any conflict`, body:`${neverWinsEsps.join(', ')}. These may be loaded too early, or are being completely overridden by broader mods.` });
+  }
+
+  // pair cluster — find any single pair > 500
+  const bigPairs = allPairs.filter(p => p.count > 500);
+  bigPairs.slice(0,3).forEach(p => {
+    alerts.push({ cls:'a-i', head:`Heavy cluster: ${p.a} ↔ ${p.b}`, body:`${p.count.toLocaleString()} conflicting records between these two mods. If both are intentional, a dedicated compatibility patch is recommended.` });
+  });
+
+  alerts.push({ cls:'a-g', head:`General tip`, body:`WRLD and CELL record conflicts are very common when multiple mods touch the same game world. A merged patch created in xEdit resolves most of these automatically.` });
+
+  document.getElementById('alert-list').innerHTML = alerts.map(a => `
+    <div class="alert ${a.cls}"><strong>${a.head}</strong>${a.body}</div>`).join('');
+}
+
+function openDetail(mod) {
+  const s = modStats[mod];
+  if (!s) return;
+  document.getElementById('d-name').textContent = mod;
+  document.getElementById('d-sub').textContent = `// wins: ${s.wins} / losses: ${s.losses} / net: ${s.losses - s.wins > 0 ? '-' : '+'}${Math.abs(s.losses - s.wins)}`;
+
+  const beatenBy = Object.entries(s.beatenBy).sort((a,b)=>b[1]-a[1]);
+  const beats    = Object.entries(s.beats).sort((a,b)=>b[1]-a[1]);
+
+  document.getElementById('d-stats').innerHTML = `
+    <div class="stat-row"><span style="color:var(--text2)">Total records</span><span>${(s.wins+s.losses).toLocaleString()}</span></div>
+    <div class="stat-row"><span style="color:var(--accent)">Wins</span><span>${s.wins.toLocaleString()}</span></div>
+    <div class="stat-row"><span style="color:var(--danger)">Losses</span><span>${s.losses.toLocaleString()}</span></div>
+    <div class="stat-row"><span style="color:var(--text2)">Net loss</span><span style="color:${s.losses>s.wins?'var(--danger)':'var(--accent)'}">${(s.losses-s.wins).toLocaleString()}</span></div>
+    <div class="stat-row"><span style="color:var(--text2)">Conflicts with</span><span>${(beatenBy.length+beats.length)} mods</span></div>`;
+
+  document.getElementById('d-conflicts').innerHTML = `
+    <div style="margin-bottom:10px;font-family:var(--mono);font-size:11px;color:var(--danger)">// overridden by</div>
+    ${beatenBy.slice(0,8).map(([m,c]) => `<div class="pair-row"><div class="pair-mods" style="cursor:pointer" onclick="openDetail('${esc(m)}')">${m}</div><span class="badge badge-r">${c}</span></div>`).join('')}
+    <div style="margin:14px 0 10px;font-family:var(--mono);font-size:11px;color:var(--accent)">// overrides</div>
+    ${beats.slice(0,8).map(([m,c]) => `<div class="pair-row"><div class="pair-mods" style="cursor:pointer" onclick="openDetail('${esc(m)}')">${m}</div><span class="badge badge-g">${c}</span></div>`).join('')}`;
+
+  document.getElementById('mod-detail').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('mod-detail').classList.remove('open');
+}
+
+function showPane(id) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function reset() {
+  allData = []; modStats = {}; typeStats = {}; allPairs = [];
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('file-input').value = '';
+  document.getElementById('status-dot').className = 'dot';
+  document.getElementById('status-text').textContent = 'NO FILE LOADED';
+  drop.style.display = 'block';
+  closeDetail();
+}
+
+function esc(s) { return s.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+</script>
+</body>
+</html>
