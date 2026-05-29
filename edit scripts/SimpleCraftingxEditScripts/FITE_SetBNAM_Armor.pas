@@ -15,7 +15,7 @@
 unit FITE_SetBNAM_Armor;
 
 const
-  TARGET_PLUGIN = 'FITE_SimpleStandaloneCrafting.esp';
+  TARGET_PLUGIN = 'WRITEYOURESP.esp';
   TARGET_EDID   = 'sc_kywd_CraftbenchArmor';
 
 var
@@ -25,7 +25,7 @@ function Initialize: Integer;
 begin
   Result := 0;
 
-  // Keyword is already imported into our ESP — search there first
+  // Keyword is already imported into our ESP â€” search there first
   newKeyword := RecordByEditorID(FileByName(TARGET_PLUGIN), TARGET_EDID);
 
   if not Assigned(newKeyword) then begin
