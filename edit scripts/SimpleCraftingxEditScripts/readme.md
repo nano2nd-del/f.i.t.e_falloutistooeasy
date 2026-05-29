@@ -1,4 +1,4 @@
-  Sets BNAM to WorkbenchChemlab on every selected COBJ record.
+  Sets BNAM to whatever you pick on every selected COBJ record.
 
   HOW TO USE
   -----------
@@ -7,7 +7,7 @@
   3. Make sure "Apply script to selected records" is CHECKED.
   4. Save when done.
 
-  
+  THE SIMPLE CRAFTING KEYWORD NEEDS TO BE ADDED TO YOUR ESP.
 they just replace the workbench BNAMs with the relevant script. 
 
 Requires SimpleCrafting and some knowledge of xedit. 
