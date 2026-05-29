@@ -1,1 +1,0 @@
-ive made a script using gordan, gemini, claude, some py tools, xedit and this is the searchable demo output more on the way but basically it lets u export a ton of useful info if you mod fallout 4 k luv u bye

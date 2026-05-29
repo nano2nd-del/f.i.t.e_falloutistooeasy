@@ -1,4 +1,0 @@
-source_file,ref_formid,base_formid,base_editorid,base_signature,pos_x,pos_y,pos_z,rot_z
-ClassicBOSOutcast.esp,07000FA5,07000FA0,000ClassicBOSOutcastDefenderMark,NPC_,-41181.117188,92578.164062,7832.000000,0.0000
-ClassicBOSOutcast.esp,07000FA1,07000F9D,000ClassicBOSOutcastDefenderDaisy,NPC_,13459.991211,-46890.753906,984.129639,0.0002
-ClassicBOSOutcast.esp,000849CE,00072A0C,SandbagWallNoSkirt01,MSTT,13495.982422,-46517.468750,971.919983,0.0000
