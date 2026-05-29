@@ -15,7 +15,7 @@
 unit FITE_SetBNAM_Weapon;
 
 const
-  TARGET_PLUGIN = 'FITE_SimpleStandaloneCrafting.esp';
+  TARGET_PLUGIN = 'WHATEVERYOURPATCHIS.esp';
   TARGET_EDID   = 'sc_kywd_CraftbenchWeapons';
 
 var
