@@ -1,6 +1,10 @@
 Addictol Configuration Patch (Fallout 4 – Next‑Gen)
 
 IMPORTANT:
+requires Addictol: https://www.nexusmods.com/fallout4/mods/84214?tab=files
+
+MASSIVE RESPECT TO perchik71, who gave me permission to recompile. 
+
 If you use HighFPSPhysicsFix, set:
 
 Code
