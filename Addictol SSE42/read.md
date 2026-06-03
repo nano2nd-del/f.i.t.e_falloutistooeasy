@@ -12,7 +12,7 @@ PipBoyFPS = 60
 to avoid animation and camera issues.
 
 
-This repository contains a custom Addictol configuration and patched DLL designed to stabilize Fallout 4 (1.11.221) on modern setups. The goal was to eliminate the UI and Scaleform crashes that I only seemed to have
+This repository contains a custom Addictol configuration and patched DLL designed to stabilize Fallout 4 (1.11.221) on modern setups. The goal was to eliminate the UI and Scaleform crashes that I only seemed to have.
 
 This config is tuned specifically for:
 
@@ -29,9 +29,9 @@ General UI timing problems
 If you’ve been dealing with any of those, this setup should save you a headache.
 
 What This Includes
-Addictol.toml — a cleaned, stable configuration
+Addictol.toml
 
-Addictol.dll — patched to match the settings in the TOML
+Addictol.dll 
 
 Drop both into your Data/F4SE/Plugins folder.
 Changes Made
