@@ -29,8 +29,6 @@ Addictol.toml
 Addictol.dll 
 
 Drop both into your Data/F4SE/Plugins folder.
-Changes Made
-Below is a quick breakdown of the settings that were adjusted and the reasoning behind each one.
 
 Disabled: LibDeflate
 Code
