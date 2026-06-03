@@ -30,10 +30,6 @@ Addictol.dll
 
 Drop both into your Data/F4SE/Plugins folder.
 
-Disabled: LibDeflate
-Code
-bLibDeflate = false
-Addictol’s libdeflate replacement is fast, but it caused instability when paired with the Next‑Gen BA2 changes and certain UI mods. Disabling it removes a major source of random CTDs.
 
 Disabled: Scaleform Allocator
 Code
