@@ -16,11 +16,15 @@ This repository contains a custom Addictol configuration and patched DLL designe
 
 This config is specifically for:
 
-Pip‑Boy camera issues
-Terminal white screens
-Scaleform/BSScaleformTextureManager crashes
-BA2 decompression instability
-General UI timing problems
+Pip‑Boy camera issues,
+
+Terminal white screens.
+
+Scaleform/BSScaleformTextureManager crashes,
+
+BA2 decompression instability,
+
+General UI timing problems,
 
 
 What This Includes
