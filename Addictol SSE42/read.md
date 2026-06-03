@@ -7,7 +7,8 @@ MASSIVE RESPECT TO perchik71, who gave me permission to recompile.
 
 If you use HighFPSPhysicsFix, set:
 
-Code
+
+
 PipBoyFPS = 60
 to avoid animation and camera issues.
 
