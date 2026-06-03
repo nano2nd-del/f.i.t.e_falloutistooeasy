@@ -14,19 +14,14 @@ to avoid animation and camera issues.
 
 This repository contains a custom Addictol configuration and patched DLL designed to stabilize Fallout 4 (1.11.221) on modern setups. The goal was to eliminate the UI and Scaleform crashes that I only seemed to have.
 
-This config is tuned specifically for:
+This config is specifically for:
 
 Pip‑Boy camera issues
-
 Terminal white screens
-
 Scaleform/BSScaleformTextureManager crashes
-
 BA2 decompression instability
-
 General UI timing problems
 
-If you’ve been dealing with any of those, this setup should save you a headache.
 
 What This Includes
 Addictol.toml
