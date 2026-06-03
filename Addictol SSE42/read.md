@@ -30,17 +30,6 @@ Addictol.dll
 
 Drop both into your Data/F4SE/Plugins folder.
 
-
-Disabled: Scaleform Allocator
-Code
-bScaleformAllocator = false
-The custom allocator can improve performance, but it also interacts with Pip‑Boy, terminals, and menus. With the new engine update, it became a frequent crash point. Keeping it off avoids BSScaleformTextureManager failures.
-
-Disabled: BA2 Timing Hooks
-Code
-bBA2Timing = false
-These hooks are useful for profiling but unnecessary for gameplay. Turning them off removes another potential conflict with the updated archive system.
-
 Pip‑Boy & UI Stability
 Several Addictol modules that touch the Pip‑Boy or UI were left enabled, but the ones that modify memory allocation or timing were disabled. This combination prevents the “Pip‑Boy in your face” bug and the terminal white‑screen issue.
 
