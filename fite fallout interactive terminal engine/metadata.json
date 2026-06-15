@@ -1,0 +1,6 @@
+{
+  "name": "FITE",
+  "description": "Fallout-inspired hardcore roguelike survival RPG featuring a 2.5D visual billboard stage and a retro terminal text interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
