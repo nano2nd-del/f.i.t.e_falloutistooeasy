@@ -8,19 +8,20 @@
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
 
   :root {
-    --bg: #0a0c0f;
-    --bg2: #111418;
-    --bg3: #181c22;
-    --border: #2a2f3a;
-    --border2: #3a4050;
-    --accent: #00e5a0;
-    --accent2: #00b87a;
-    --danger: #ff4d6d;
-    --warn: #ffb347;
-    --info: #4db8ff;
-    --text: #c8d0dc;
-    --text2: #7a8494;
-    --text3: #4a5060;
+    /* ── Vault amber palette extracted from reference image ── */
+    --bg:      #080600;       /* deepest near-black, warm brown undertone */
+    --bg2:     #100d04;       /* panel background — dark but readable */
+    --bg3:     #1a1508;       /* raised surface / inputs */
+    --border:  #3d2e0e;       /* structural border, warm ochre-brown */
+    --border2: #5c4418;       /* interactive border, brighter ochre */
+    --accent:  #ffb43c;       /* primary amber glow — cryo pod light */
+    --accent2: #d28200;       /* secondary amber — deeper gold */
+    --danger:  #ff5e3a;       /* warm red-orange — loss indicator */
+    --warn:    #ffd166;       /* bright yellow-gold — warning */
+    --info:    #c89a3c;       /* muted amber-gold — info/blue role */
+    --text:    #f0d89a;       /* primary text — warm parchment */
+    --text2:   #a8892a;       /* secondary text — mid amber */
+    --text3:   #6b5218;       /* tertiary / muted labels */
     --mono: 'Share Tech Mono', monospace;
     --head: 'Rajdhani', sans-serif;
   }
@@ -31,17 +32,17 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--head);
-    font-size: 15px;
+    font-size: 16px;          /* bumped for legibility */
     min-height: 100vh;
     overflow-x: hidden;
   }
 
-  /* scanline overlay */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.07) 2px, rgba(0,0,0,.07) 4px);
+    /* warm amber scanlines instead of cold black */
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,140,0,.04) 2px, rgba(255,140,0,.04) 4px);
     pointer-events: none;
     z-index: 9999;
   }
@@ -53,6 +54,8 @@
     align-items: center;
     gap: 16px;
     background: var(--bg2);
+    /* subtle amber glow along the bottom edge */
+    box-shadow: 0 1px 0 var(--border), 0 2px 20px rgba(255,180,60,.06);
   }
 
   .logo-mark {
@@ -61,13 +64,14 @@
     display: grid;
     place-items: center;
     position: relative;
+    box-shadow: 0 0 8px rgba(255,180,60,.25), inset 0 0 8px rgba(255,180,60,.1);
   }
   .logo-mark::before {
     content: '';
     position: absolute;
     inset: 3px;
     border: 1px solid var(--accent2);
-    opacity: .5;
+    opacity: .6;
   }
   .logo-mark span {
     font-family: var(--mono);
@@ -76,8 +80,8 @@
     letter-spacing: -.5px;
   }
 
-  .header-title { font-size: 20px; font-weight: 700; letter-spacing: .08em; color: #fff; }
-  .header-sub { font-size: 12px; color: var(--text2); letter-spacing: .1em; font-family: var(--mono); margin-top: 1px; }
+  .header-title { font-size: 22px; font-weight: 700; letter-spacing: .08em; color: var(--accent); text-shadow: 0 0 16px rgba(255,180,60,.4); }
+  .header-sub { font-size: 12px; color: var(--text2); letter-spacing: .1em; font-family: var(--mono); margin-top: 2px; }
 
   .header-status {
     margin-left: auto;
@@ -88,17 +92,16 @@
   }
   .header-status .dot {
     display: inline-block;
-    width: 6px; height: 6px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--text3);
     margin-right: 6px;
     vertical-align: middle;
   }
-  .header-status .dot.live { background: var(--accent); box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
+  .header-status .dot.live { background: var(--accent); box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(255,180,60,.4); animation: pulse 2s infinite; }
 
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-  /* drop zone */
   #drop-zone {
     margin: 60px auto;
     max-width: 560px;
@@ -114,69 +117,67 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0,229,160,.03) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center bottom, rgba(255,180,60,.06) 0%, transparent 70%);
     pointer-events: none;
   }
   #drop-zone:hover, #drop-zone.drag-over {
     border-color: var(--accent);
-    background: rgba(0,229,160,.04);
+    background: rgba(255,180,60,.04);
   }
-  .drop-icon {
-    font-size: 48px;
-    line-height: 1;
-    margin-bottom: 20px;
-    opacity: .6;
-  }
-  .drop-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: .05em;
-    margin-bottom: 8px;
-  }
-  .drop-sub {
-    font-size: 13px;
-    color: var(--text2);
-    font-family: var(--mono);
-    margin-bottom: 24px;
-  }
+  .drop-icon { font-size: 48px; line-height: 1; margin-bottom: 20px; opacity: .7; }
+  .drop-title { font-size: 24px; font-weight: 700; color: var(--accent); letter-spacing: .05em; margin-bottom: 8px; text-shadow: 0 0 12px rgba(255,180,60,.3); }
+  .drop-sub { font-size: 13px; color: var(--text2); font-family: var(--mono); margin-bottom: 24px; }
   .btn {
     display: inline-block;
     padding: 10px 24px;
     border: 1.5px solid var(--accent);
     color: var(--accent);
     font-family: var(--head);
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
     letter-spacing: .1em;
     cursor: pointer;
     background: transparent;
-    transition: background .15s, color .15s;
+    transition: background .15s, color .15s, box-shadow .15s;
   }
-  .btn:hover { background: var(--accent); color: #000; }
+  .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 16px rgba(255,180,60,.4); }
+  .btn-sm {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .08em;
+    cursor: pointer;
+    background: transparent;
+    transition: border-color .15s, color .15s;
+  }
+  .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-sm.active { border-color: var(--accent); color: var(--accent); background: rgba(255,180,60,.08); }
   #file-input { display: none; }
 
-  /* dashboard */
   #dashboard { display: none; padding: 0 32px 48px; }
 
   .file-info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding: 12px 20px;
     background: var(--bg2);
     border: 1px solid var(--border);
     margin-bottom: 24px;
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text2);
+    flex-wrap: wrap;
   }
   .file-info strong { color: var(--accent); }
   .file-info .reset-btn {
     margin-left: auto;
     cursor: pointer;
     color: var(--text3);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: .08em;
     background: none;
     border: none;
@@ -184,21 +185,28 @@
     padding: 4px 8px;
   }
   .file-info .reset-btn:hover { color: var(--danger); }
+  .file-info .export-btn {
+    cursor: pointer;
+    color: var(--accent2);
+    font-size: 12px;
+    letter-spacing: .08em;
+    background: none;
+    border: 1px solid rgba(210,130,0,.35);
+    font-family: var(--mono);
+    padding: 4px 10px;
+    transition: background .15s;
+  }
+  .file-info .export-btn:hover { background: rgba(210,130,0,.12); }
 
-  /* metrics row */
   .metrics {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
     margin-bottom: 24px;
   }
-  .metric {
-    background: var(--bg2);
-    padding: 18px 20px;
-    text-align: center;
-  }
+  .metric { background: var(--bg2); padding: 18px 20px; text-align: center; }
   .metric-val {
     font-family: var(--mono);
     font-size: 26px;
@@ -210,17 +218,18 @@
   .metric-val.green { color: var(--accent); }
   .metric-val.red   { color: var(--danger); }
   .metric-val.warn  { color: var(--warn); }
-  .metric-lbl { font-size: 11px; color: var(--text2); letter-spacing: .1em; text-transform: uppercase; }
+  .metric-val.info  { color: var(--info); }
+  .metric-lbl { font-size: 12px; color: var(--text2); letter-spacing: .1em; text-transform: uppercase; }
 
-  /* tab bar */
   .tabs {
     display: flex;
     gap: 0;
     border-bottom: 1px solid var(--border);
     margin-bottom: 24px;
+    flex-wrap: wrap;
   }
   .tab {
-    padding: 10px 22px;
+    padding: 11px 18px;
     font-family: var(--head);
     font-size: 13px;
     font-weight: 600;
@@ -235,131 +244,208 @@
     border-right: none;
     transition: color .15s;
     margin-bottom: -1px;
+    white-space: nowrap;
   }
   .tab:hover { color: var(--text); }
-  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); text-shadow: 0 0 10px rgba(255,180,60,.35); }
 
   .pane { display: none; }
   .pane.active { display: block; }
 
-  /* section */
   .section-label {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--text3);
+    color: var(--text2);              /* was text3 — too invisible */
     letter-spacing: .15em;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     gap: 10px;
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* bar rows */
   .bar-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;               /* slightly more breathing room */
     font-size: 13px;
   }
   .bar-label {
-    width: 260px;
+    width: 300px;                     /* wider — less truncation */
     flex-shrink: 0;
     color: var(--text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;                  /* was 11px */
     cursor: pointer;
+    line-height: 1.4;
   }
   .bar-label:hover { color: var(--accent); }
+  .bar-label.no-click { cursor: default; }
+  .bar-label.no-click:hover { color: var(--text); }
   .bar-track {
     flex: 1;
-    height: 6px;
+    height: 7px;                      /* slightly taller bar */
     background: var(--bg3);
+    border: 1px solid var(--border);
     position: relative;
     overflow: hidden;
   }
   .bar-fill { height: 100%; transition: width .4s ease; }
-  .bar-fill.loss  { background: var(--danger); }
-  .bar-fill.win   { background: var(--accent); }
-  .bar-fill.net   { background: linear-gradient(90deg, var(--danger), #ff8560); }
+  .bar-fill.loss  { background: var(--danger); box-shadow: 0 0 6px rgba(255,94,58,.4); }
+  .bar-fill.win   { background: var(--accent); box-shadow: 0 0 6px rgba(255,180,60,.4); }
+  .bar-fill.net   { background: linear-gradient(90deg, var(--danger), #e07030); }
   .bar-fill.blue  { background: var(--info); }
   .bar-fill.warn  { background: var(--warn); }
+  .bar-fill.split { background: linear-gradient(90deg, var(--accent) var(--w-pct, 50%), var(--danger) var(--w-pct, 50%)); }
   .bar-val {
-    width: 52px;
+    width: 54px;
     text-align: right;
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;                  /* was 11px */
     color: var(--text2);
     flex-shrink: 0;
   }
+
   .badge {
     font-family: var(--mono);
-    font-size: 10px;
-    padding: 1px 6px;
+    font-size: 11px;                  /* was 10px */
+    padding: 2px 7px;
     border: 1px solid;
     letter-spacing: .05em;
+    white-space: nowrap;
   }
-  .badge-r { color: var(--danger); border-color: rgba(255,77,109,.3); background: rgba(255,77,109,.07); }
-  .badge-g { color: var(--accent); border-color: rgba(0,229,160,.3); background: rgba(0,229,160,.07); }
-  .badge-w { color: var(--warn);   border-color: rgba(255,179,71,.3);  background: rgba(255,179,71,.07); }
-  .badge-i { color: var(--info);   border-color: rgba(77,184,255,.3);  background: rgba(77,184,255,.07); }
+  /* Re-tinted badges to work on warm dark bg */
+  .badge-r { color: #ff7a5a; border-color: rgba(255,94,58,.4); background: rgba(255,94,58,.1); }
+  .badge-g { color: var(--accent); border-color: rgba(255,180,60,.35); background: rgba(255,180,60,.09); }
+  .badge-w { color: var(--warn);   border-color: rgba(255,209,102,.35); background: rgba(255,209,102,.08); }
+  .badge-i { color: #d4a640;       border-color: rgba(200,154,60,.4);   background: rgba(200,154,60,.09); }
+  .badge-d { color: var(--text2);  border-color: var(--border2);        background: rgba(255,180,60,.04); }
 
-  /* alert cards */
   .alert {
     border-left: 3px solid;
-    padding: 12px 16px;
-    margin-bottom: 10px;
+    padding: 13px 18px;
+    margin-bottom: 12px;
     background: var(--bg2);
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 14px;                  /* was 13px */
+    line-height: 1.7;                 /* more breathing room */
+    color: var(--text);
   }
-  .alert strong { font-weight: 700; display: block; margin-bottom: 4px; font-size: 14px; }
-  .alert.a-r { border-color: var(--danger); }
-  .alert.a-r strong { color: var(--danger); }
-  .alert.a-w { border-color: var(--warn); }
+  .alert strong { font-weight: 700; display: block; margin-bottom: 5px; font-size: 15px; }
+  .alert.a-r { border-color: var(--danger); background: rgba(255,94,58,.04); }
+  .alert.a-r strong { color: #ff7a5a; }
+  .alert.a-w { border-color: var(--warn); background: rgba(255,209,102,.04); }
   .alert.a-w strong { color: var(--warn); }
-  .alert.a-i { border-color: var(--info); }
+  .alert.a-i { border-color: var(--info); background: rgba(200,154,60,.04); }
   .alert.a-i strong { color: var(--info); }
-  .alert.a-g { border-color: var(--accent); }
+  .alert.a-g { border-color: var(--accent); background: rgba(255,180,60,.05); }
   .alert.a-g strong { color: var(--accent); }
 
-  /* grid */
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
 
-  /* pair table */
   .pair-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 7px 0;
+    padding: 9px 0;
     border-bottom: 1px solid var(--border);
-    font-size: 12px;
+    font-size: 13px;                  /* was 12px */
   }
   .pair-row:last-child { border: none; }
-  .pair-mods { font-family: var(--mono); color: var(--text2); }
-  .pair-mods em { color: var(--text); font-style: normal; }
+  .pair-mods { font-family: var(--mono); color: var(--text2); min-width: 0; overflow: hidden; }
+  .pair-mods em { color: var(--text); font-style: normal; word-break: break-all; }
   .pair-count { font-family: var(--mono); color: var(--text2); flex-shrink: 0; margin-left: 12px; }
 
-  /* search */
   .search-wrap { position: relative; margin-bottom: 16px; }
   .search-wrap input {
     width: 100%;
-    background: var(--bg2);
+    background: var(--bg3);
     border: 1px solid var(--border2);
     color: var(--text);
     font-family: var(--mono);
-    font-size: 12px;
-    padding: 9px 14px;
+    font-size: 13px;                  /* was 12px */
+    padding: 10px 14px;
     outline: none;
-    transition: border-color .15s;
+    transition: border-color .15s, box-shadow .15s;
   }
-  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(255,180,60,.2); }
   .search-wrap input::placeholder { color: var(--text3); }
+
+  /* filter toolbar */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .filter-bar .filter-lbl {
+    font-family: var(--mono);
+    font-size: 12px;                  /* was 11px */
+    color: var(--text2);              /* was text3 */
+    margin-right: 2px;
+  }
+
+  /* FormID table */
+  .fid-table { width: 100%; border-collapse: collapse; }
+  .fid-table th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 11px;                  /* was 10px */
+    color: var(--text2);              /* was text3 */
+    letter-spacing: .1em;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border2);
+    background: var(--bg3);
+    position: sticky;
+    top: 0;
+  }
+  .fid-table td {
+    font-family: var(--mono);
+    font-size: 12px;                  /* was 11px */
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .fid-table tr:hover td { background: rgba(255,180,60,.025); }
+  .fid-table td.fid-id { color: var(--warn); }
+  .fid-table td.fid-name { color: var(--text); max-width: 200px; word-break: break-all; }
+  .fid-table td.fid-count { color: var(--danger); text-align: center; }
+  .fid-table td.fid-mods { color: var(--text2); font-size: 11px; line-height: 1.8; }
+  .fid-scroll { max-height: 420px; overflow-y: auto; border: 1px solid var(--border); }
+
+
+  /* plugin type breakdown */
+  .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 24px; }
+  .type-cell { background: var(--bg2); padding: 18px 20px; }
+  .type-cell-head { font-family: var(--mono); font-size: 13px; color: var(--accent); margin-bottom: 12px; letter-spacing: .08em; }
+  .type-mini-stat { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--text2); margin-bottom: 5px; }
+  .type-mini-stat span:last-child { color: var(--text); }
+
+  /* simulator */
+  #sim-result {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    padding: 18px 22px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    min-height: 60px;
+    margin-top: 16px;
+    line-height: 1.8;
+    display: none;
+  }
+  #sim-result.visible { display: block; }
+  .sim-delta { font-size: 22px; font-weight: 700; }
+  .sim-delta.improved { color: var(--accent); text-shadow: 0 0 10px rgba(255,180,60,.4); }
+  .sim-delta.worse { color: var(--danger); }
 
   /* mod detail panel */
   #mod-detail {
@@ -374,7 +460,7 @@
     transition: transform .25s ease;
     z-index: 100;
   }
-  #mod-detail.open { transform: none; }
+  #mod-detail.open { transform: none; box-shadow: -4px 0 30px rgba(0,0,0,.6); }
   .detail-close {
     position: absolute;
     top: 16px; right: 16px;
@@ -382,18 +468,36 @@
     border: 1px solid var(--border2);
     color: var(--text2);
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     padding: 4px 10px;
     cursor: pointer;
   }
   .detail-close:hover { border-color: var(--danger); color: var(--danger); }
-  .detail-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; word-break: break-all; }
-  .detail-sub { font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 20px; }
-  .stat-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; font-family: var(--mono); }
+  .detail-title { font-size: 17px; font-weight: 700; color: var(--accent); margin-bottom: 4px; word-break: break-all; }
+  .detail-sub { font-family: var(--mono); font-size: 12px; color: var(--text2); margin-bottom: 20px; line-height: 1.5; }
+  .stat-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; font-family: var(--mono); }
   .stat-row:last-child { border: none; }
 
-  /* spinner */
-  #loading { display: none; text-align: center; padding: 80px 20px; font-family: var(--mono); color: var(--text2); font-size: 13px; }
+  /* toast */
+  #toast {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--bg3);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 11px 20px;
+    z-index: 9998;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .2s, transform .2s;
+    pointer-events: none;
+    box-shadow: 0 0 16px rgba(255,180,60,.25);
+  }
+  #toast.show { opacity: 1; transform: none; }
+
+  #loading { display: none; text-align: center; padding: 80px 20px; font-family: var(--mono); color: var(--text2); font-size: 14px; }
   .spinner {
     width: 32px; height: 32px;
     border: 2px solid var(--border2);
@@ -401,16 +505,56 @@
     border-radius: 50%;
     animation: spin .7s linear infinite;
     margin: 0 auto 16px;
+    box-shadow: 0 0 10px rgba(255,180,60,.2);
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* responsive */
-  @media (max-width: 900px) {
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 13px 32px;
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text3);
+  }
+  footer .author { color: var(--text2); }
+  footer .author span { color: var(--accent); text-shadow: 0 0 8px rgba(255,180,60,.3); }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .metric { background: var(--bg2); padding: 20px 20px; text-align: center; }
+  .metric-val {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 7px;
+  }
+  .metric-val.green { color: var(--accent); text-shadow: 0 0 12px rgba(255,180,60,.3); }
+  .metric-val.red   { color: var(--danger); }
+  .metric-val.warn  { color: var(--warn); }
+  .metric-val.info  { color: var(--info); }
+  .metric-lbl { font-size: 12px; color: var(--text2); letter-spacing: .1em; text-transform: uppercase; }
+
+  @media (max-width: 1000px) {
     .metrics { grid-template-columns: repeat(3, 1fr); }
     .grid2 { grid-template-columns: 1fr; }
+    .grid3 { grid-template-columns: 1fr; }
+    .type-grid { grid-template-columns: 1fr; }
     #mod-detail { width: 100%; }
     header { padding: 14px 16px; }
     #dashboard { padding: 0 16px 48px; }
+    footer { padding: 12px 16px; }
   }
 </style>
 </head>
@@ -446,6 +590,8 @@
     <span>FILE:</span>
     <strong id="fname">—</strong>
     <span id="frows">—</span>
+    <button class="export-btn" onclick="exportReport()">[ EXPORT REPORT ]</button>
+    <button class="export-btn" onclick="copyReportToClipboard()">[ COPY SUMMARY ]</button>
     <button class="reset-btn" onclick="reset()">[ LOAD NEW FILE ]</button>
   </div>
 
@@ -454,22 +600,35 @@
     <div class="metric"><div class="metric-val green" id="m-wins">—</div><div class="metric-lbl">Wins</div></div>
     <div class="metric"><div class="metric-val red" id="m-losses">—</div><div class="metric-lbl">Losses</div></div>
     <div class="metric"><div class="metric-val" id="m-mods">—</div><div class="metric-lbl">Unique mods</div></div>
-    <div class="metric"><div class="metric-val warn" id="m-forms">—</div><div class="metric-lbl">FormIDs</div></div>
+    <div class="metric"><div class="metric-val warn" id="m-forms">—</div><div class="metric-lbl">Contested FormIDs</div></div>
+    <div class="metric"><div class="metric-val info" id="m-hotspot">—</div><div class="metric-lbl">Hotspot forms</div></div>
   </div>
 
   <div class="tabs">
-    <button class="tab active" onclick="showPane('net')">NET LOSSES</button>
-    <button class="tab" onclick="showPane('pairs')">CONFLICT PAIRS</button>
-    <button class="tab" onclick="showPane('types')">RECORD TYPES</button>
-    <button class="tab" onclick="showPane('always')">NEVER WINS</button>
-    <button class="tab" onclick="showPane('alerts')">ACTION PLAN</button>
+    <button class="tab active" onclick="showPane('net',this)">NET LOSSES</button>
+    <button class="tab" onclick="showPane('pairs',this)">CONFLICT PAIRS</button>
+    <button class="tab" onclick="showPane('types',this)">RECORD TYPES</button>
+    <button class="tab" onclick="showPane('formids',this)">FORMID DRILL-DOWN</button>
+    <button class="tab" onclick="showPane('plugintypes',this)">PLUGIN TYPES</button>
+    <button class="tab" onclick="showPane('always',this)">NEVER WINS</button>
+    <button class="tab" onclick="showPane('simulator',this)">SIMULATOR</button>
+    <button class="tab" onclick="showPane('alerts',this)">ACTION PLAN</button>
   </div>
 
+  <!-- NET LOSSES -->
   <div id="pane-net" class="pane active">
-    <div class="section-label">Mods by net losses — click any row for detail</div>
+    <div class="filter-bar">
+      <span class="filter-lbl">// filter:</span>
+      <div class="search-wrap" style="flex:1;margin-bottom:0"><input id="net-search" placeholder="mod name..." oninput="renderNetBars()"></div>
+      <button class="btn-sm active" id="sort-net" onclick="toggleNetSort()">SORT: NET</button>
+      <button class="btn-sm" id="tog-esm" onclick="toggleESM()">HIDE ESM/ESL</button>
+    </div>
+    <div class="section-label">Mods by loss metric — click any row for detail</div>
     <div id="net-bars"></div>
+    <div id="net-more" style="margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--text3)"></div>
   </div>
 
+  <!-- CONFLICT PAIRS -->
   <div id="pane-pairs" class="pane">
     <div class="section-label">Top conflicting mod pairs</div>
     <div class="search-wrap">
@@ -478,6 +637,7 @@
     <div id="pair-list"></div>
   </div>
 
+  <!-- RECORD TYPES -->
   <div id="pane-types" class="pane">
     <div class="grid2">
       <div>
@@ -495,11 +655,62 @@
           <div><span style="color:var(--text)">PERK</span> — perks. Low volume but high impact if lost.</div>
           <div><span style="color:var(--text)">OMOD</span> — weapon mods (misc mods). Losing these breaks mod crafting/attach.</div>
           <div><span style="color:var(--text)">NAVM</span> — navmesh. Losing these can break NPC pathing.</div>
+          <div><span style="color:var(--text)">NPC_</span> — NPC records. Stats, factions, AI packages.</div>
+          <div><span style="color:var(--text)">WEAP</span> — weapons. Losing these breaks weapon stats or keywords.</div>
+          <div><span style="color:var(--text)">ARMO</span> — armor/apparel. Affects item stats and crafting components.</div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- FORMID DRILL-DOWN (new) -->
+  <div id="pane-formids" class="pane">
+    <div class="filter-bar">
+      <span class="filter-lbl">// min conflicts:</span>
+      <button class="btn-sm active" id="fid-min-2" onclick="setFidMin(2,this)">2+</button>
+      <button class="btn-sm" id="fid-min-3" onclick="setFidMin(3,this)">3+</button>
+      <button class="btn-sm" id="fid-min-5" onclick="setFidMin(5,this)">5+</button>
+      <div class="search-wrap" style="flex:1;margin-bottom:0;margin-left:8px"><input id="fid-search" placeholder="// filter by FormID or name..." oninput="renderFormIDs()"></div>
+    </div>
+    <div class="section-label">Contested FormIDs — most mods fighting over the same record</div>
+    <div class="fid-scroll">
+      <table class="fid-table">
+        <thead>
+          <tr>
+            <th>FormID</th>
+            <th>Record Name</th>
+            <th style="text-align:center">Mods</th>
+            <th>Plugins Involved</th>
+          </tr>
+        </thead>
+        <tbody id="fid-tbody"></tbody>
+      </table>
+    </div>
+    <div id="fid-count" style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--text3)"></div>
+  </div>
+
+  <!-- PLUGIN TYPES (new) -->
+  <div id="pane-plugintypes" class="pane">
+    <div class="section-label">Plugin type breakdown — ESM / ESP / ESL</div>
+    <div class="type-grid" id="plugin-type-grid"></div>
+    <div class="grid2" style="margin-top:24px">
+      <div>
+        <div class="section-label">Win rate by plugin type</div>
+        <div id="plugin-type-bars"></div>
+      </div>
+      <div>
+        <div class="section-label">Notes</div>
+        <div style="font-size:12px;font-family:var(--mono);color:var(--text2);line-height:1.9">
+          <div><span style="color:var(--accent)">.ESM</span> — Master files. Load earliest, typically win against ESP/ESL by default. Losses in ESMs are serious.</div>
+          <div style="margin-top:8px"><span style="color:var(--info)">.ESL</span> — Light plugins. Load after ESMs, before ESPs. Zero esp-slot cost. FormID space is limited.</div>
+          <div style="margin-top:8px"><span style="color:var(--warn)">.ESP</span> — Full plugins. The bulk of the load order. Win/loss rate here drives most conflict analysis.</div>
+          <div style="margin-top:8px"><span style="color:var(--text3)">Note: ESL-flagged ESPs appear as ESP in this view unless named with .esl extension.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALWAYS/NEVER -->
   <div id="pane-always" class="pane">
     <div class="grid2">
       <div>
@@ -513,6 +724,28 @@
     </div>
   </div>
 
+  <!-- SIMULATOR (new) -->
+  <div id="pane-simulator" class="pane">
+    <div class="section-label">Load order impact simulator</div>
+    <div style="font-family:var(--mono);font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.8">
+      Select a mod to see how removing it from the load order would affect total conflict counts and win rates for the remaining plugins. This is a static analysis — it does not account for in-game effects.
+    </div>
+    <div class="filter-bar">
+      <span class="filter-lbl">// select mod:</span>
+      <div class="search-wrap" style="flex:1;margin-bottom:0">
+        <input id="sim-search" placeholder="// type mod name to select..." oninput="filterSimMods(this.value)" autocomplete="off">
+      </div>
+    </div>
+    <div id="sim-dropdown" style="background:var(--bg2);border:1px solid var(--border2);display:none;max-height:180px;overflow-y:auto;"></div>
+    <div id="sim-selected" style="font-family:var(--mono);font-size:12px;color:var(--text3);margin-top:8px"></div>
+    <div id="sim-result"></div>
+
+    <div style="margin-top:32px" class="section-label">Top 10 highest-impact removals</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:12px">Mods whose removal would free the most records from conflict</div>
+    <div id="sim-top10"></div>
+  </div>
+
+  <!-- ALERTS -->
   <div id="pane-alerts" class="pane">
     <div class="section-label">Auto-generated action plan</div>
     <div id="alert-list"></div>
@@ -524,12 +757,26 @@
   <div class="detail-title" id="d-name">—</div>
   <div class="detail-sub" id="d-sub">—</div>
   <div id="d-stats"></div>
-  <div style="margin-top:20px" class="section-label">Top conflicts</div>
+  <div style="margin-top:20px" class="section-label">Top record types</div>
+  <div id="d-types"></div>
+  <div style="margin-top:16px" class="section-label">Top conflicts</div>
   <div id="d-conflicts"></div>
 </div>
 
+<div id="toast"></div>
+
+<footer>
+  <div class="author">by <span>nano2nd</span> // v2.0</div>
+  <div style="color:var(--text3)">Plugin Conflict Analyzer // xEdit CSV viewer</div>
+</footer>
+
 <script>
-let allData = [], pairData = [], modStats = {}, typeStats = {}, allPairs = [];
+let allData = [], modStats = {}, typeStats = {}, allPairs = [], formContest = {};
+let netSortMode = 'net'; // 'net' | 'losses' | 'wins'
+let hideESM = false;
+let fidMinConflicts = 2;
+let simSelected = null;
+let simTop10Cache = null;
 
 const drop = document.getElementById('drop-zone');
 drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag-over'); });
@@ -548,7 +795,6 @@ function handleFile(file) {
 
 function parseCSV(text, fname) {
   const lines = text.trim().split('\n');
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
   const rows = [];
   for (let i = 1; i < lines.length; i++) {
     const parts = smartSplit(lines[i]);
@@ -576,43 +822,46 @@ function smartSplit(line) {
   return res;
 }
 
+function getPluginType(name) {
+  if (!name) return 'ESP';
+  const lower = name.toLowerCase();
+  if (lower.endsWith('.esm')) return 'ESM';
+  if (lower.endsWith('.esl')) return 'ESL';
+  return 'ESP';
+}
+
 function analyze(fname) {
   const mods = {};
   const pairs = {};
   const types = {};
-  const formContest = {};
+  formContest = {};
 
   allData.forEach(r => {
-    // mod stats
-    if (!mods[r.currentMod]) mods[r.currentMod] = { wins: 0, losses: 0, beatenBy: {}, beats: {} };
+    if (!mods[r.currentMod]) mods[r.currentMod] = { wins: 0, losses: 0, beatenBy: {}, beats: {}, recordTypes: {} };
+    const m = r.recordName.match(/\[([A-Z0-9_]{2,6}):/);
+    const recType = m ? m[1] : 'UNK';
+    mods[r.currentMod].recordTypes[recType] = (mods[r.currentMod].recordTypes[recType] || 0) + 1;
+
     if (r.type === 'Win') {
       mods[r.currentMod].wins++;
-      if (!mods[r.currentMod].beats[r.conflictingMod]) mods[r.currentMod].beats[r.conflictingMod] = 0;
-      mods[r.currentMod].beats[r.conflictingMod]++;
+      mods[r.currentMod].beats[r.conflictingMod] = (mods[r.currentMod].beats[r.conflictingMod] || 0) + 1;
     } else {
       mods[r.currentMod].losses++;
-      if (!mods[r.currentMod].beatenBy[r.conflictingMod]) mods[r.currentMod].beatenBy[r.conflictingMod] = 0;
-      mods[r.currentMod].beatenBy[r.conflictingMod]++;
+      mods[r.currentMod].beatenBy[r.conflictingMod] = (mods[r.currentMod].beatenBy[r.conflictingMod] || 0) + 1;
     }
 
-    // pairs
     const key = [r.currentMod, r.conflictingMod].sort().join('|||');
-    if (!pairs[key]) pairs[key] = 0;
-    pairs[key]++;
+    pairs[key] = (pairs[key] || 0) + 1;
 
-    // types
-    const m = r.recordName.match(/\[([A-Z]{2,6}):/);
-    if (m) { types[m[1]] = (types[m[1]] || 0) + 1; }
+    if (m) types[m[1]] = (types[m[1]] || 0) + 1;
 
-    // form contest
     if (!formContest[r.formID]) formContest[r.formID] = { mods: new Set(), name: r.recordName };
+    formContest[r.formID].mods.add(r.currentMod);
     formContest[r.formID].mods.add(r.conflictingMod);
   });
 
   modStats = mods;
   typeStats = types;
-
-  // build pairs list
   allPairs = Object.entries(pairs)
     .map(([k, v]) => { const [a, b] = k.split('|||'); return { a, b, count: v }; })
     .sort((a, b) => b.count - a.count);
@@ -621,6 +870,7 @@ function analyze(fname) {
   const losses = allData.filter(r => r.type === 'Loss').length;
   const allModNames = new Set([...allData.map(r => r.currentMod), ...allData.map(r => r.conflictingMod)]);
   const allForms = new Set(allData.map(r => r.formID));
+  const hotspots = Object.values(formContest).filter(f => f.mods.size >= 4).length;
 
   document.getElementById('fname').textContent = fname;
   document.getElementById('frows').textContent = `// ${allData.length.toLocaleString()} records`;
@@ -629,43 +879,86 @@ function analyze(fname) {
   document.getElementById('m-losses').textContent = losses.toLocaleString();
   document.getElementById('m-mods').textContent = allModNames.size.toLocaleString();
   document.getElementById('m-forms').textContent = allForms.size.toLocaleString();
+  document.getElementById('m-hotspot').textContent = hotspots.toLocaleString();
 
   document.getElementById('status-dot').className = 'dot live';
   document.getElementById('status-text').textContent = fname.toUpperCase();
 
+  simTop10Cache = null;
   renderNetBars();
   renderPairs();
   renderTypes();
+  renderFormIDs();
+  renderPluginTypes();
   renderAlwaysNever();
+  renderSimTop10();
   renderAlerts();
 
   document.getElementById('loading').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
 }
 
+// ─── NET LOSSES ──────────────────────────────────────────────────────────────
+
+function toggleNetSort() {
+  const cycle = ['net', 'losses', 'wins'];
+  const labels = { net: 'SORT: NET', losses: 'SORT: LOSSES', wins: 'SORT: WINS' };
+  const idx = cycle.indexOf(netSortMode);
+  netSortMode = cycle[(idx + 1) % 3];
+  document.getElementById('sort-net').textContent = labels[netSortMode];
+  renderNetBars();
+}
+
+function toggleESM() {
+  hideESM = !hideESM;
+  document.getElementById('tog-esm').classList.toggle('active', hideESM);
+  renderNetBars();
+}
+
 function renderNetBars() {
-  const sorted = Object.entries(modStats)
-    .map(([m, s]) => ({ mod: m, net: s.losses - s.wins, losses: s.losses, wins: s.wins }))
-    .filter(d => d.net > 0)
-    .sort((a, b) => b.net - a.net)
-    .slice(0, 30);
+  const q = document.getElementById('net-search').value.toLowerCase();
+  let data = Object.entries(modStats)
+    .map(([m, s]) => ({ mod: m, net: s.losses - s.wins, losses: s.losses, wins: s.wins, type: getPluginType(m) }))
+    .filter(d => {
+      if (hideESM && (d.type === 'ESM' || d.type === 'ESL')) return false;
+      if (q && !d.mod.toLowerCase().includes(q)) return false;
+      return d.net > 0;
+    });
 
-  const max = sorted[0]?.net || 1;
-  document.getElementById('net-bars').innerHTML = sorted.map(d => `
-    <div class="bar-row">
+  if (netSortMode === 'net') data.sort((a, b) => b.net - a.net);
+  else if (netSortMode === 'losses') data.sort((a, b) => b.losses - a.losses);
+  else data.sort((a, b) => b.wins - a.wins);
+
+  const total = data.length;
+  const display = data.slice(0, 40);
+  const maxVal = netSortMode === 'wins'
+    ? Math.max(...display.map(d => d.wins), 1)
+    : Math.max(...display.map(d => netSortMode === 'losses' ? d.losses : d.net), 1);
+
+  const typeColors = { ESM: 'badge-r', ESP: 'badge-w', ESL: 'badge-i' };
+
+  document.getElementById('net-bars').innerHTML = display.map(d => {
+    const val = netSortMode === 'net' ? d.net : netSortMode === 'losses' ? d.losses : d.wins;
+    const fillClass = netSortMode === 'wins' ? 'win' : 'net';
+    return `<div class="bar-row">
       <div class="bar-label" onclick="openDetail('${esc(d.mod)}')" title="${esc(d.mod)}">${d.mod}</div>
-      <div class="bar-track"><div class="bar-fill net" style="width:${Math.round(d.net/max*100)}%"></div></div>
-      <div class="bar-val">${d.net.toLocaleString()}</div>
-      <span class="badge badge-r">${d.losses}L / ${d.wins}W</span>
-    </div>`).join('');
+      <span class="badge ${typeColors[d.type]||'badge-d'}">${d.type}</span>
+      <div class="bar-track"><div class="bar-fill ${fillClass}" style="width:${Math.round(val/maxVal*100)}%"></div></div>
+      <div class="bar-val">${val.toLocaleString()}</div>
+      <span class="badge badge-r">${d.losses}L</span>
+      <span class="badge badge-g">${d.wins}W</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('net-more').textContent = total > 40 ? `// showing 40 of ${total} mods with net losses — refine filter to see more` : '';
 }
 
-function renderPairs() {
-  renderPairList(allPairs.slice(0, 50));
-}
+// ─── PAIRS ───────────────────────────────────────────────────────────────────
+
+function renderPairs() { renderPairList(allPairs.slice(0, 50)); }
 
 function renderPairList(data) {
-  document.getElementById('pair-list').innerHTML = data.slice(0, 60).map((d, i) => `
+  document.getElementById('pair-list').innerHTML = data.slice(0, 60).map(d => `
     <div class="pair-row">
       <div class="pair-mods">
         <em>${d.a}</em>
@@ -682,24 +975,104 @@ function filterPairs(q) {
   renderPairList(filtered.slice(0, 60));
 }
 
+// ─── RECORD TYPES ────────────────────────────────────────────────────────────
+
 function renderTypes() {
   const sorted = Object.entries(typeStats).sort((a, b) => b[1] - a[1]);
   const max = sorted[0]?.[1] || 1;
-  const colors = { WRLD:'win', CELL:'win', COBJ:'warn', LVLI:'loss', ALCH:'blue', QUST:'blue', PERK:'loss', OMOD:'warn' };
+  const colors = { WRLD:'win', CELL:'win', COBJ:'warn', LVLI:'loss', ALCH:'blue', QUST:'blue', PERK:'loss', OMOD:'warn', NPC_:'blue', WEAP:'warn', ARMO:'blue' };
   document.getElementById('type-bars').innerHTML = sorted.map(([t, c]) => `
     <div class="bar-row">
-      <div class="bar-label">${t}</div>
+      <div class="bar-label no-click">${t}</div>
       <div class="bar-track"><div class="bar-fill ${colors[t]||'blue'}" style="width:${Math.round(c/max*100)}%"></div></div>
       <div class="bar-val">${c.toLocaleString()}</div>
     </div>`).join('');
 }
+
+// ─── FORMID DRILL-DOWN ───────────────────────────────────────────────────────
+
+function setFidMin(n, el) {
+  fidMinConflicts = n;
+  document.querySelectorAll('[id^="fid-min-"]').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderFormIDs();
+}
+
+function renderFormIDs() {
+  const q = (document.getElementById('fid-search').value || '').toLowerCase();
+  const rows = Object.entries(formContest)
+    .filter(([id, d]) => {
+      if (d.mods.size < fidMinConflicts) return false;
+      if (q && !id.toLowerCase().includes(q) && !d.name.toLowerCase().includes(q)) return false;
+      return true;
+    })
+    .sort((a, b) => b[1].mods.size - a[1].mods.size)
+    .slice(0, 200);
+
+  document.getElementById('fid-tbody').innerHTML = rows.map(([id, d]) => {
+    const modList = [...d.mods].join('<br>');
+    const sizeClass = d.mods.size >= 5 ? 'badge-r' : d.mods.size >= 3 ? 'badge-w' : 'badge-d';
+    return `<tr>
+      <td class="fid-id">${id}</td>
+      <td class="fid-name">${d.name}</td>
+      <td class="fid-count"><span class="badge ${sizeClass}">${d.mods.size}</span></td>
+      <td class="fid-mods">${modList}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('fid-count').textContent = `// showing ${rows.length} contested FormIDs`;
+}
+
+// ─── PLUGIN TYPE BREAKDOWN ───────────────────────────────────────────────────
+
+function renderPluginTypes() {
+  const byType = { ESM: { wins:0, losses:0, mods: new Set() }, ESP: { wins:0, losses:0, mods: new Set() }, ESL: { wins:0, losses:0, mods: new Set() } };
+
+  allData.forEach(r => {
+    const t = getPluginType(r.currentMod);
+    if (!byType[t]) return;
+    byType[t].mods.add(r.currentMod);
+    if (r.type === 'Win') byType[t].wins++;
+    else byType[t].losses++;
+  });
+
+  const typeLabels = { ESM: 'Master Files (.esm)', ESP: 'Full Plugins (.esp)', ESL: 'Light Plugins (.esl)' };
+  const typeAccent = { ESM: 'var(--danger)', ESP: 'var(--warn)', ESL: 'var(--info)' };
+
+  document.getElementById('plugin-type-grid').innerHTML = Object.entries(byType).map(([t, d]) => {
+    const total = d.wins + d.losses;
+    const winPct = total ? Math.round(d.wins / total * 100) : 0;
+    return `<div class="type-cell">
+      <div class="type-cell-head" style="color:${typeAccent[t]}">${typeLabels[t]}</div>
+      <div class="type-mini-stat"><span>Unique plugins</span><span>${d.mods.size}</span></div>
+      <div class="type-mini-stat"><span>Total records</span><span>${total.toLocaleString()}</span></div>
+      <div class="type-mini-stat"><span>Wins</span><span style="color:var(--accent)">${d.wins.toLocaleString()}</span></div>
+      <div class="type-mini-stat"><span>Losses</span><span style="color:var(--danger)">${d.losses.toLocaleString()}</span></div>
+      <div class="type-mini-stat"><span>Win rate</span><span style="color:${winPct>50?'var(--accent)':'var(--danger)'}">${winPct}%</span></div>
+    </div>`;
+  }).join('');
+
+  // win rate bars
+  document.getElementById('plugin-type-bars').innerHTML = Object.entries(byType).map(([t, d]) => {
+    const total = d.wins + d.losses;
+    if (!total) return '';
+    const winPct = Math.round(d.wins / total * 100);
+    return `<div class="bar-row">
+      <div class="bar-label no-click">${t}</div>
+      <div class="bar-track" style="height:10px">
+        <div class="bar-fill split" style="--w-pct:${winPct}%;width:100%"></div>
+      </div>
+      <div class="bar-val">${winPct}%W</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── ALWAYS / NEVER ──────────────────────────────────────────────────────────
 
 function renderAlwaysNever() {
   const lossSet = new Set(allData.filter(r=>r.type==='Loss').map(r=>r.currentMod));
   const winSet  = new Set(allData.filter(r=>r.type==='Win').map(r=>r.currentMod));
   const neverWins = [...lossSet].filter(m => !winSet.has(m));
   const neverLoses = [...winSet].filter(m => !lossSet.has(m));
-
   const lossCount = m => modStats[m]?.losses || 0;
   const winCount  = m => modStats[m]?.wins || 0;
 
@@ -718,97 +1091,250 @@ function renderAlwaysNever() {
     </div>`).join('') || '<div style="color:var(--text3);font-family:var(--mono);font-size:12px">None found.</div>';
 }
 
+// ─── SIMULATOR ───────────────────────────────────────────────────────────────
+
+function filterSimMods(q) {
+  const dd = document.getElementById('sim-dropdown');
+  if (!q) { dd.style.display = 'none'; return; }
+  const matches = Object.keys(modStats).filter(m => m.toLowerCase().includes(q.toLowerCase())).slice(0, 20);
+  if (!matches.length) { dd.style.display = 'none'; return; }
+  dd.style.display = 'block';
+  dd.innerHTML = matches.map(m => `
+    <div onclick="selectSimMod('${esc(m)}')" style="padding:8px 14px;font-family:var(--mono);font-size:11px;color:var(--text2);cursor:pointer;border-bottom:1px solid var(--border);" onmouseover="this.style.background='rgba(0,229,160,.05)'" onmouseout="this.style.background=''">${m}</div>
+  `).join('');
+}
+
+function selectSimMod(mod) {
+  simSelected = mod;
+  document.getElementById('sim-search').value = mod;
+  document.getElementById('sim-dropdown').style.display = 'none';
+  document.getElementById('sim-selected').textContent = `// selected: ${mod}`;
+  runSimulator(mod);
+}
+
+function runSimulator(mod) {
+  const result = document.getElementById('sim-result');
+  result.classList.add('visible');
+
+  // Count records involving this mod
+  const baseline = { wins: 0, losses: 0 };
+  allData.forEach(r => {
+    if (r.type === 'Win') baseline.wins++;
+    else baseline.losses++;
+  });
+
+  const without = { wins: 0, losses: 0 };
+  allData.forEach(r => {
+    if (r.currentMod === mod || r.conflictingMod === mod) return; // exclude
+    if (r.type === 'Win') without.wins++;
+    else without.losses++;
+  });
+
+  const removedRecords = allData.filter(r => r.currentMod === mod || r.conflictingMod === mod).length;
+  const lossChange = without.losses - baseline.losses;
+  const winChange = without.wins - baseline.wins;
+  const baseTotal = baseline.wins + baseline.losses;
+  const newTotal = without.wins + without.losses;
+
+  const baseWinPct = baseTotal ? (baseline.wins / baseTotal * 100).toFixed(1) : 0;
+  const newWinPct  = newTotal  ? (without.wins  / newTotal  * 100).toFixed(1) : 0;
+  const pctDelta = (parseFloat(newWinPct) - parseFloat(baseWinPct)).toFixed(1);
+
+  const improved = lossChange < 0;
+
+  result.innerHTML = `
+    <div style="margin-bottom:12px;color:var(--text2)">Simulating removal of: <span style="color:#fff">${mod}</span></div>
+    <div class="grid2" style="gap:12px;margin-bottom:16px">
+      <div style="background:var(--bg3);padding:14px 18px">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px">RECORDS REMOVED FROM ANALYSIS</div>
+        <div style="font-size:22px;color:var(--warn);font-family:var(--mono)">${removedRecords.toLocaleString()}</div>
+      </div>
+      <div style="background:var(--bg3);padding:14px 18px">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px">WIN RATE CHANGE</div>
+        <div class="sim-delta ${parseFloat(pctDelta)>0?'improved':'worse'}">${pctDelta > 0 ? '+' : ''}${pctDelta}%</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">${baseWinPct}% → ${newWinPct}%</div>
+      </div>
+    </div>
+    <div style="color:var(--text2)">
+      Losses: <span style="color:${lossChange<0?'var(--accent)':'var(--danger)'}">${baseline.losses.toLocaleString()} → ${without.losses.toLocaleString()} (${lossChange<0?'':'+'}${lossChange.toLocaleString()})</span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      Wins: <span style="color:var(--text)">${baseline.wins.toLocaleString()} → ${without.wins.toLocaleString()} (${winChange<0?'':'+'}${winChange.toLocaleString()})</span>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:var(--text3)">
+      ${improved ? '✓ Removing this mod reduces total conflict pressure on remaining plugins.' : '○ Removing this mod does not significantly reduce conflict pressure — it may be a net contributor or bridge.'}
+    </div>`;
+}
+
+function renderSimTop10() {
+  const candidates = Object.keys(modStats).slice(0, 100); // limit for perf
+  const results = candidates.map(mod => {
+    const count = allData.filter(r => r.currentMod === mod || r.conflictingMod === mod).length;
+    return { mod, count };
+  }).sort((a, b) => b.count - a.count).slice(0, 10);
+
+  document.getElementById('sim-top10').innerHTML = results.map((d, i) => `
+    <div class="bar-row">
+      <div class="bar-label" onclick="selectSimMod('${esc(d.mod)}')" title="Click to simulate">${d.mod}</div>
+      <div class="bar-track"><div class="bar-fill blue" style="width:${Math.round(d.count/results[0].count*100)}%"></div></div>
+      <div class="bar-val">${d.count.toLocaleString()}</div>
+      <span class="badge badge-i">sim</span>
+    </div>`).join('');
+}
+
+// ─── ALERTS ──────────────────────────────────────────────────────────────────
+
 function renderAlerts() {
   const alerts = [];
 
-  // UFO4P
   const ufo = modStats['unofficial fallout 4 patch.esp'];
   if (ufo && ufo.losses > 500) {
     const top = Object.entries(ufo.beatenBy).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([m])=>m).join(', ');
     alerts.push({ cls:'a-r', head:`UFO4P losing ${ufo.losses.toLocaleString()} records`, body:`Unofficial Fallout 4 Patch is being overridden by: ${top}, and others. It should load immediately after DLCs — verify nothing except DLC ESMs precedes it.` });
   }
 
-  // any mod with high net losses
   const netSorted = Object.entries(modStats)
     .map(([m,s]) => ({ mod:m, net:s.losses-s.wins, losses:s.losses, wins:s.wins }))
-    .filter(d => d.net > 200 && !d.mod.includes('.esm') && !d.mod.includes('.esl'))
-    .sort((a,b) => b.net-a.net)
-    .slice(0,5);
+    .filter(d => d.net > 200 && !d.mod.toLowerCase().endsWith('.esm') && !d.mod.toLowerCase().endsWith('.esl'))
+    .sort((a,b) => b.net-a.net).slice(0,5);
 
   netSorted.forEach(d => {
     const top = Object.entries(modStats[d.mod].beatenBy).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([m])=>m).join(', ');
     alerts.push({ cls:'a-w', head:`${d.mod} — ${d.net.toLocaleString()} net losses`, body:`This mod is being overridden far more than it overrides others. Top offenders: ${top}. Consider moving it later in load order or finding a compatibility patch.` });
   });
 
-  // leveled list conflicts
   const lvliLosers = Object.entries(modStats)
-    .filter(([m,s]) => {
-      const lv = allData.filter(r => r.currentMod===m && r.type==='Loss' && r.recordName.includes('[LVLI:')).length;
-      return lv > 10;
-    })
+    .filter(([m]) => allData.filter(r => r.currentMod===m && r.type==='Loss' && r.recordName.includes('[LVLI:')).length > 10)
     .map(([m]) => m);
-  if (lvliLosers.length) {
+  if (lvliLosers.length)
     alerts.push({ cls:'a-w', head:`Leveled list conflicts detected`, body:`${lvliLosers.join(', ')} are losing LVLI records. Leveled list losses affect loot and spawn tables — these are high-impact conflicts. Consider an xEdit merged patch or LeveledListMerger.` });
-  }
 
-  // mods that only lose
   const lossSet = new Set(allData.filter(r=>r.type==='Loss').map(r=>r.currentMod));
   const winSet  = new Set(allData.filter(r=>r.type==='Win').map(r=>r.currentMod));
-  const neverWinsEsps = [...lossSet].filter(m => !winSet.has(m) && !m.includes('.esm') && !m.includes('.esl'));
-  if (neverWinsEsps.length) {
+  const neverWinsEsps = [...lossSet].filter(m => !winSet.has(m) && !m.toLowerCase().endsWith('.esm') && !m.toLowerCase().endsWith('.esl'));
+  if (neverWinsEsps.length)
     alerts.push({ cls:'a-i', head:`${neverWinsEsps.length} ESP(s) never win any conflict`, body:`${neverWinsEsps.join(', ')}. These may be loaded too early, or are being completely overridden by broader mods.` });
-  }
 
-  // pair cluster — find any single pair > 500
-  const bigPairs = allPairs.filter(p => p.count > 500);
-  bigPairs.slice(0,3).forEach(p => {
-    alerts.push({ cls:'a-i', head:`Heavy cluster: ${p.a} ↔ ${p.b}`, body:`${p.count.toLocaleString()} conflicting records between these two mods. If both are intentional, a dedicated compatibility patch is recommended.` });
-  });
+  allPairs.filter(p => p.count > 500).slice(0,3).forEach(p =>
+    alerts.push({ cls:'a-i', head:`Heavy cluster: ${p.a} ↔ ${p.b}`, body:`${p.count.toLocaleString()} conflicting records between these two mods. If both are intentional, a dedicated compatibility patch is recommended.` }));
+
+  const hotForms = Object.entries(formContest).filter(([,d]) => d.mods.size >= 5);
+  if (hotForms.length)
+    alerts.push({ cls:'a-r', head:`${hotForms.length} FormID hotspot(s) contested by 5+ mods`, body:`These records are edited by 5 or more plugins simultaneously: ${hotForms.slice(0,5).map(([id,d])=>`${id} (${d.mods.size} mods)`).join(', ')}. The winner-takes-all nature of these records means most mods' changes are silently lost.` });
 
   alerts.push({ cls:'a-g', head:`General tip`, body:`WRLD and CELL record conflicts are very common when multiple mods touch the same game world. A merged patch created in xEdit resolves most of these automatically.` });
 
-  document.getElementById('alert-list').innerHTML = alerts.map(a => `
-    <div class="alert ${a.cls}"><strong>${a.head}</strong>${a.body}</div>`).join('');
+  document.getElementById('alert-list').innerHTML = alerts.map(a =>
+    `<div class="alert ${a.cls}"><strong>${a.head}</strong>${a.body}</div>`).join('');
 }
+
+// ─── MOD DETAIL PANEL ────────────────────────────────────────────────────────
 
 function openDetail(mod) {
   const s = modStats[mod];
   if (!s) return;
   document.getElementById('d-name').textContent = mod;
-  document.getElementById('d-sub').textContent = `// wins: ${s.wins} / losses: ${s.losses} / net: ${s.losses - s.wins > 0 ? '-' : '+'}${Math.abs(s.losses - s.wins)}`;
+  const net = s.losses - s.wins;
+  document.getElementById('d-sub').textContent = `// ${getPluginType(mod)} · wins: ${s.wins} / losses: ${s.losses} / net: ${net > 0 ? '-' : '+'}${Math.abs(net)}`;
 
   const beatenBy = Object.entries(s.beatenBy).sort((a,b)=>b[1]-a[1]);
   const beats    = Object.entries(s.beats).sort((a,b)=>b[1]-a[1]);
 
   document.getElementById('d-stats').innerHTML = `
+    <div class="stat-row"><span style="color:var(--text2)">Plugin type</span><span>${getPluginType(mod)}</span></div>
     <div class="stat-row"><span style="color:var(--text2)">Total records</span><span>${(s.wins+s.losses).toLocaleString()}</span></div>
     <div class="stat-row"><span style="color:var(--accent)">Wins</span><span>${s.wins.toLocaleString()}</span></div>
     <div class="stat-row"><span style="color:var(--danger)">Losses</span><span>${s.losses.toLocaleString()}</span></div>
-    <div class="stat-row"><span style="color:var(--text2)">Net loss</span><span style="color:${s.losses>s.wins?'var(--danger)':'var(--accent)'}">${(s.losses-s.wins).toLocaleString()}</span></div>
-    <div class="stat-row"><span style="color:var(--text2)">Conflicts with</span><span>${(beatenBy.length+beats.length)} mods</span></div>`;
+    <div class="stat-row"><span style="color:var(--text2)">Net loss</span><span style="color:${net>0?'var(--danger)':'var(--accent)'}">${net.toLocaleString()}</span></div>
+    <div class="stat-row"><span style="color:var(--text2)">Win rate</span><span>${s.wins+s.losses?Math.round(s.wins/(s.wins+s.losses)*100):0}%</span></div>
+    <div class="stat-row"><span style="color:var(--text2)">Conflict partners</span><span>${(beatenBy.length+beats.length)} mods</span></div>`;
+
+  // record type breakdown for this mod
+  const topTypes = Object.entries(s.recordTypes).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  document.getElementById('d-types').innerHTML = topTypes.map(([t,c]) =>
+    `<div class="stat-row"><span style="color:var(--text2)">${t}</span><span>${c}</span></div>`).join('');
 
   document.getElementById('d-conflicts').innerHTML = `
     <div style="margin-bottom:10px;font-family:var(--mono);font-size:11px;color:var(--danger)">// overridden by</div>
-    ${beatenBy.slice(0,8).map(([m,c]) => `<div class="pair-row"><div class="pair-mods" style="cursor:pointer" onclick="openDetail('${esc(m)}')">${m}</div><span class="badge badge-r">${c}</span></div>`).join('')}
+    ${beatenBy.slice(0,8).map(([m,c]) => `<div class="pair-row"><div class="pair-mods" style="cursor:pointer;overflow:hidden" onclick="openDetail('${esc(m)}')">${m}</div><span class="badge badge-r">${c}</span></div>`).join('')}
     <div style="margin:14px 0 10px;font-family:var(--mono);font-size:11px;color:var(--accent)">// overrides</div>
-    ${beats.slice(0,8).map(([m,c]) => `<div class="pair-row"><div class="pair-mods" style="cursor:pointer" onclick="openDetail('${esc(m)}')">${m}</div><span class="badge badge-g">${c}</span></div>`).join('')}`;
+    ${beats.slice(0,8).map(([m,c]) => `<div class="pair-row"><div class="pair-mods" style="cursor:pointer;overflow:hidden" onclick="openDetail('${esc(m)}')">${m}</div><span class="badge badge-g">${c}</span></div>`).join('')}`;
 
   document.getElementById('mod-detail').classList.add('open');
 }
 
-function closeDetail() {
-  document.getElementById('mod-detail').classList.remove('open');
-}
+function closeDetail() { document.getElementById('mod-detail').classList.remove('open'); }
 
-function showPane(id) {
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+
+function showPane(id, el) {
   document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('pane-'+id).classList.add('active');
-  event.target.classList.add('active');
+  if (el) el.classList.add('active');
 }
 
+// ─── EXPORT ──────────────────────────────────────────────────────────────────
+
+function buildReportText() {
+  const total = allData.length;
+  const wins = allData.filter(r=>r.type==='Win').length;
+  const losses = allData.filter(r=>r.type==='Loss').length;
+  const allMods = new Set([...allData.map(r=>r.currentMod),...allData.map(r=>r.conflictingMod)]);
+  const date = new Date().toISOString().split('T')[0];
+
+  const topNet = Object.entries(modStats)
+    .map(([m,s])=>({ mod:m, net:s.losses-s.wins }))
+    .filter(d=>d.net>0)
+    .sort((a,b)=>b.net-a.net).slice(0,20);
+
+  const lines = [
+    `PLUGIN CONFLICT ANALYSIS REPORT`,
+    `Generated: ${date} | Tool: Plugin Conflict Analyzer by nano2nd`,
+    ``,
+    `SUMMARY`,
+    `-------`,
+    `Total records:   ${total.toLocaleString()}`,
+    `Wins:            ${wins.toLocaleString()}`,
+    `Losses:          ${losses.toLocaleString()}`,
+    `Unique mods:     ${allMods.size}`,
+    ``,
+    `TOP 20 NET LOSERS`,
+    `-----------------`,
+    ...topNet.map((d,i)=>`${String(i+1).padStart(2,'0')}. ${d.mod.padEnd(60)} net: -${d.net}`),
+    ``,
+    `TOP 10 CONFLICT PAIRS`,
+    `---------------------`,
+    ...allPairs.slice(0,10).map((d,i)=>`${String(i+1).padStart(2,'0')}. ${d.a} <-> ${d.b} [${d.count} records]`),
+  ];
+  return lines.join('\n');
+}
+
+function exportReport() {
+  const text = buildReportText();
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'conflict-report.txt'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('REPORT EXPORTED');
+}
+
+function copyReportToClipboard() {
+  const text = buildReportText();
+  navigator.clipboard.writeText(text).then(() => showToast('COPIED TO CLIPBOARD'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ─── RESET ───────────────────────────────────────────────────────────────────
+
 function reset() {
-  allData = []; modStats = {}; typeStats = {}; allPairs = [];
+  allData = []; modStats = {}; typeStats = {}; allPairs = []; formContest = {};
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('file-input').value = '';
   document.getElementById('status-dot').className = 'dot';
@@ -817,7 +1343,7 @@ function reset() {
   closeDetail();
 }
 
-function esc(s) { return s.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+function esc(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 </script>
 </body>
 </html>
